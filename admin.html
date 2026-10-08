@@ -1,0 +1,1339 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FitCore - Admin Portal</title>
+  
+  <!-- Google Fonts: Montserrat for athletic & modern styling -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Tailwind Configuration -->
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Montserrat', 'sans-serif'],
+          },
+          colors: {
+            gym: {
+              brand: '#FBBF24',       // Energetic brand red
+              brandHover: '#D97706',  // Hover brand red
+              darkBg: '#0B0F19',      // Mockup dark background
+              darkCard: '#161C2A',    // Mockup card background
+              darkBorder: '#232B3C',  // Mockup border
+              lightBg: '#FAFAFA',     // Light background
+              lightCard: '#FFFFFF',   // Pure white card
+              lightBorder: '#E5E5E5', // Light border
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Prevent layout shift during theme loading */
+    .theme-loading * {
+      transition: none !important;
+    }
+    
+    html, body {
+      max-width: 100%;
+      overflow-x: hidden;
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    *, *:before, *:after {
+      box-sizing: border-box;
+    }
+  
+    /* --- STRICT MOBILE RESPONSIVE SAFEGUARDS --- */
+    html {
+      font-size: 14px;
+    }
+    @media (min-width: 768px) {
+      html {
+        font-size: 15px;
+      }
+    }
+    @media (min-width: 1024px) {
+      html {
+        font-size: 16px;
+      }
+    }
+
+    /* Wrap long words to prevent overflow scrolling */
+    p, span, h1, h2, h3, h4, h5, h6, a, button, label, input, select, textarea {
+      overflow-wrap: break-word;
+      word-break: break-word;
+    }
+
+    /* Prevent horizontal scrolling on mobile */
+    html, body {
+      max-width: 100vw !important;
+      overflow-x: hidden !important;
+      box-sizing: border-box !important;
+    }
+
+    /* Mobile spacing optimizations */
+    @media (max-width: 480px) {
+      .py-20 {
+        padding-top: 3.5rem !important;
+        padding-bottom: 3.5rem !important;
+      }
+      .py-16 {
+        padding-top: 3rem !important;
+        padding-bottom: 3rem !important;
+      }
+      .py-12 {
+        padding-top: 2rem !important;
+        padding-bottom: 2rem !important;
+      }
+      .gap-12 {
+        gap: 1.75rem !important;
+      }
+      .gap-8 {
+        gap: 1.25rem !important;
+      }
+    }
+
+    /* Date input calendar picker icon contrast in dark theme */
+    .dark input[type="date"] {
+      color-scheme: dark;
+    }
+    .dark input[type="date"]::-webkit-calendar-picker-indicator {
+      /* filter: invert(1); removed because color-scheme handles it */
+      cursor: pointer;
+    }
+  </style>
+
+  <script>
+    // Inline blocking script to set theme & dir immediately to prevent page flash
+    (function() {
+      const savedTheme = localStorage.getItem('theme');
+      const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      if (savedTheme === 'dark' || (!savedTheme && systemPrefersDark)) {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+
+      const savedDir = localStorage.getItem('dir') || 'ltr';
+      document.documentElement.setAttribute('dir', savedDir);
+      document.documentElement.setAttribute('lang', savedDir === 'rtl' ? 'ar' : 'en');
+    })();
+  </script>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+</head>
+<body class="bg-gym-lightBg text-zinc-800 dark:bg-gym-darkBg dark:text-zinc-200 min-h-screen transition-colors duration-300 font-sans">
+
+  <!-- HEADER NAVIGATION (Matches Mockup) -->
+  <header class="border-b border-gym-lightBorder dark:border-gym-darkBorder bg-gym-lightCard dark:bg-[#0B0F19] w-full py-4 px-6 sm:px-8 flex flex-col md:flex-row md:items-center md:justify-between sticky top-0 z-40 gap-4">
+    <!-- Top Row: Hamburger & Logo -->
+    <div class="flex items-center justify-start gap-4 w-full md:w-auto">
+      <button onclick="toggleSidebarMenu()" class="lg:hidden p-2.5 rounded-xl border border-zinc-200 dark:border-zinc-800 hover:bg-zinc-100 dark:hover:bg-zinc-900 text-zinc-600 dark:text-zinc-300 focus:outline-none transition-colors" aria-label="Toggle Dashboard Menu">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
+      </button>
+      <a href="index.html" class="flex items-center space-x-2.5 rtl:space-x-reverse group">
+        <div class="relative flex items-center justify-center text-gym-brand group-hover:scale-110 transition-transform duration-300">
+          <svg class="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="9" width="1.5" height="6" rx="0.5" fill="currentColor" stroke="none"/>
+            <rect x="4.5" y="7" width="1.5" height="10" rx="0.5" fill="currentColor" stroke="none"/>
+            <rect x="18" y="7" width="1.5" height="10" rx="0.5" fill="currentColor" stroke="none"/>
+            <rect x="20.5" y="9" width="1.5" height="6" rx="0.5" fill="currentColor" stroke="none"/>
+            <path d="M6 12h3.5l1.5-4.5L12.5 17l1.5-11 1.5 7.5L18 12" />
+          </svg>
+          <span class="absolute w-5 h-5 rounded-full bg-gym-brand/20 blur-md opacity-70"></span>
+        </div>
+        <span class="text-lg font-extrabold tracking-tight text-zinc-950 dark:text-white transition-colors duration-300">
+          FIT<span class="text-gym-brand italic font-black">CORE</span>
+        </span>
+      </a>
+    </div>
+
+    <!-- Top Right Actions -->
+    <div class="flex items-center justify-end space-x-4 rtl:space-x-reverse w-full md:w-auto">
+      <!-- Profile Avatar dropdown mock -->
+      <div class="relative inline-block text-left">
+        <button onclick="toggleHeaderDropdown(event)" id="header-profile-btn" class="flex items-center space-x-2.5 rtl:space-x-reverse p-1.5 pr-3 bg-zinc-100 dark:bg-[#161C2A] rounded-xl border border-zinc-200 dark:border-zinc-800 text-xs font-bold text-zinc-900 dark:text-white hover:bg-zinc-200 dark:hover:bg-zinc-800 focus:outline-none transition-colors">
+          <div class="w-8 h-8 rounded-full bg-[#FFC83B] text-zinc-950 font-black flex items-center justify-center">AD</div>
+          <span class="hidden sm:inline">Admin Portal</span>
+          <svg class="w-3.5 h-3.5 text-zinc-400 transition-transform duration-200" id="header-profile-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7" />
+          </svg>
+        </button>
+        <!-- Dropdown Menu -->
+        <div id="header-profile-menu" class="hidden absolute right-0 mt-2 w-48 rounded-xl shadow-xl bg-gym-lightCard dark:bg-gym-darkCard border border-gym-lightBorder dark:border-gym-darkBorder text-xs font-bold uppercase text-zinc-700 dark:text-zinc-300 overflow-hidden z-50">
+          <button onclick="switchTab('overview'); closeHeaderDropdown();" class="w-full px-4 py-3 text-start hover:bg-zinc-100 dark:hover:bg-zinc-900 hover:text-zinc-950 dark:hover:text-white transition-colors">Dashboard</button>
+          <button onclick="switchTab('reports'); closeHeaderDropdown();" class="w-full px-4 py-3 text-start hover:bg-zinc-100 dark:hover:bg-zinc-900 hover:text-zinc-950 dark:hover:text-white transition-colors">Reports Area</button>
+          <button onclick="switchTab('notifications'); closeHeaderDropdown();" class="w-full px-4 py-3 text-start hover:bg-zinc-100 dark:hover:bg-zinc-900 hover:text-zinc-950 dark:hover:text-white transition-colors">Send Notification</button>
+          <hr class="border-gym-lightBorder dark:border-gym-darkBorder">
+          <button onclick="triggerLogout(); closeHeaderDropdown();" class="w-full px-4 py-3 text-start text-red-500 hover:bg-red-50 dark:hover:bg-red-950/20 transition-colors">Logout</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- DASHBOARD WRAPPER -->
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+      
+      <!-- Mobile Sidebar Overlay Backdrop -->
+      <div id="sidebar-backdrop" onclick="toggleSidebarMenu()" class="hidden fixed inset-0 bg-black/60 backdrop-blur-sm z-40 lg:hidden"></div>
+
+      <!-- LEFT SIDEBAR PANEL (SPA Controllers) -->
+      <aside class="fixed lg:static inset-y-0 end-0 z-50 w-72 lg:w-auto h-full lg:h-auto overflow-y-auto lg:overflow-visible transition-transform duration-300 transform translate-x-full lg:translate-x-0 lg:col-span-3 bg-gym-lightCard dark:bg-gym-darkCard border-l lg:border border-gym-lightBorder dark:border-gym-darkBorder lg:rounded-3xl p-6 shadow-2xl lg:shadow-xl space-y-6">
+        <div class="flex items-center justify-between border-b border-gym-lightBorder dark:border-gym-darkBorder pb-4">
+          <div class="flex items-center space-x-2 rtl:space-x-reverse text-gym-brand">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
+            </svg>
+            <span class="text-sm font-black uppercase tracking-wider text-zinc-950 dark:text-white">ADMIN PORTAL</span>
+          </div>
+
+          <!-- Quick Actions toggles -->
+          <div class="flex items-center space-x-1 rtl:space-x-reverse">
+            <!-- Theme toggle -->
+            <button onclick="toggleDarkMode()" class="p-2 rounded-lg bg-zinc-100 hover:bg-zinc-200 dark:bg-[#0B0F19] dark:hover:bg-zinc-900 text-zinc-500 hover:text-zinc-800 dark:text-zinc-400 dark:hover:text-white transition-all duration-200">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="5"></circle>
+                  <line x1="12" y1="1" x2="12" y2="3"></line>
+                  <line x1="12" y1="21" x2="12" y2="23"></line>
+                  <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                  <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                  <line x1="1" y1="12" x2="3" y2="12"></line>
+                  <line x1="21" y1="12" x2="23" y2="12"></line>
+                  <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                  <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+              </svg>
+            </button>
+            <!-- RTL toggle -->
+            <button onclick="toggleRTL()" class="p-2 rounded-lg bg-zinc-100 hover:bg-zinc-200 dark:bg-[#0B0F19] dark:hover:bg-zinc-900 text-zinc-500 hover:text-zinc-800 dark:text-zinc-400 dark:hover:text-white transition-all duration-200">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Sidebar Tab Navigation Links -->
+        <nav class="space-y-1.5 text-xs font-bold uppercase tracking-wider">
+          <button onclick="switchTab('overview')" id="tab-overview" class="w-full flex items-center justify-between px-4 py-3.5 rounded-xl border-s-4 border-gym-brand bg-zinc-50 dark:bg-[#161C2A] text-zinc-900 dark:text-white text-start transition-all">
+            <span>Overview Dashboard</span>
+          </button>
+          <button onclick="switchTab('members')" id="tab-members" class="w-full flex items-center justify-between px-4 py-3.5 rounded-xl border-s-4 border-transparent text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-50 dark:hover:bg-zinc-900/50 text-start transition-all">
+            <span>Member Management</span>
+          </button>
+          <button onclick="switchTab('plans')" id="tab-plans" class="w-full flex items-center justify-between px-4 py-3.5 rounded-xl border-s-4 border-transparent text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-50 dark:hover:bg-zinc-900/50 text-start transition-all">
+            <span>Membership Management</span>
+          </button>
+          <button onclick="switchTab('classes')" id="tab-classes" class="w-full flex items-center justify-between px-4 py-3.5 rounded-xl border-s-4 border-transparent text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-50 dark:hover:bg-zinc-900/50 text-start transition-all">
+            <span>Class Management</span>
+          </button>
+          <button onclick="switchTab('trainers')" id="tab-trainers" class="w-full flex items-center justify-between px-4 py-3.5 rounded-xl border-s-4 border-transparent text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-50 dark:hover:bg-zinc-900/50 text-start transition-all">
+            <span>Trainer Management</span>
+          </button>
+          <button onclick="switchTab('bookings')" id="tab-bookings" class="w-full flex items-center justify-between px-4 py-3.5 rounded-xl border-s-4 border-transparent text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-50 dark:hover:bg-zinc-900/50 text-start transition-all">
+            <span>Booking Management</span>
+          </button>
+          <button onclick="switchTab('attendance')" id="tab-attendance" class="w-full flex items-center justify-between px-4 py-3.5 rounded-xl border-s-4 border-transparent text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-50 dark:hover:bg-zinc-900/50 text-start transition-all">
+            <span>Attendance Management</span>
+          </button>
+          <button onclick="switchTab('payments')" id="tab-payments" class="w-full flex items-center justify-between px-4 py-3.5 rounded-xl border-s-4 border-transparent text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-50 dark:hover:bg-zinc-900/50 text-start transition-all">
+            <span>Payment Management</span>
+          </button>
+          <button onclick="switchTab('notifications')" id="tab-notifications" class="w-full flex items-center justify-between px-4 py-3.5 rounded-xl border-s-4 border-transparent text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-50 dark:hover:bg-zinc-900/50 text-start transition-all">
+            <span>Notifications Management</span>
+          </button>
+          <button onclick="switchTab('facilities')" id="tab-facilities" class="w-full flex items-center justify-between px-4 py-3.5 rounded-xl border-s-4 border-transparent text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-50 dark:hover:bg-zinc-900/50 text-start transition-all">
+            <span>Facilities Management</span>
+          </button>
+          <button onclick="switchTab('reports')" id="tab-reports" class="w-full flex items-center justify-between px-4 py-3.5 rounded-xl border-s-4 border-transparent text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-50 dark:hover:bg-zinc-900/50 text-start transition-all">
+            <span>Reports & Analytics</span>
+          </button>
+          <button onclick="triggerLogout()" id="tab-logout" class="w-full flex items-center justify-between px-4 py-3.5 rounded-xl border-s-4 border-transparent text-red-500 hover:bg-red-50 dark:hover:bg-red-950/20 text-start transition-all">
+            <span>Logout</span>
+          </button>
+        </nav>
+      </aside>
+
+      <!-- RIGHT CONTENT PANEL -->
+      <main class="lg:col-span-9 space-y-6">
+
+        <!-- TAB 1: OVERVIEW DASHBOARD -->
+        <div id="content-overview" class="space-y-6">
+          <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+            <div class="space-y-1">
+              <h2 class="text-3xl font-black uppercase text-zinc-950 dark:text-white">Admin Dashboard</h2>
+              <p class="text-xs font-semibold text-zinc-400">Total member checks, active classes, and revenue overview.</p>
+            </div>
+            <span class="inline-block px-4 py-1.5 border border-[#FFC83B] text-[#FFC83B] text-xs font-black uppercase rounded-full tracking-wider">Management Console</span>
+          </div>
+
+          <!-- Cards Grid -->
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 text-center sm:text-start">
+            <div class="bg-gym-lightCard dark:bg-gym-darkCard border border-gym-lightBorder dark:border-gym-darkBorder rounded-3xl p-6 shadow-md space-y-1">
+              <span class="block text-3xl font-black text-gym-brand">1,248</span>
+              <span class="block text-[10px] font-bold text-zinc-400 uppercase tracking-widest min-h-[32px]"> Total Registered Members</span>
+              <span class="block text-[9px] text-zinc-500 normal-case">1,150 Active // 98 Expired</span>
+            </div>
+            <div class="bg-gym-lightCard dark:bg-gym-darkCard border border-gym-lightBorder dark:border-gym-darkBorder rounded-3xl p-6 shadow-md space-y-1">
+              <span class="block text-3xl font-black text-gym-brand">6 Classes</span>
+              <span class="block text-[10px] font-bold text-zinc-400 uppercase tracking-widest min-h-[32px]"> Today's Class Schedule</span>
+              <span class="block text-[9px] text-zinc-500 normal-case">142 Checked-In Today</span>
+            </div>
+            <div class="bg-gym-lightCard dark:bg-gym-darkCard border border-gym-lightBorder dark:border-gym-darkBorder rounded-3xl p-6 shadow-md space-y-1">
+              <span class="block text-3xl font-black text-gym-brand">$12,450.00</span>
+              <span class="block text-[10px] font-bold text-zinc-400 uppercase tracking-widest min-h-[32px]"> Monthly Gross Revenue</span>
+              <span class="block text-[9px] text-zinc-500 normal-case">Target: $15,000 // 83% Achieved</span>
+            </div>
+          </div>
+
+          <!-- Revenue visual growth progress -->
+          <div class="bg-gym-lightCard dark:bg-gym-darkCard border border-gym-lightBorder dark:border-gym-darkBorder rounded-3xl p-6 shadow-md space-y-4">
+            <h3 class="text-sm font-black uppercase text-zinc-950 dark:text-white">YEARLY MEMBERSHIP GROWTH</h3>
+            <div class="space-y-3 font-bold text-xs uppercase text-zinc-400">
+              <div class="space-y-1">
+                <div class="flex justify-between text-[10px]">
+                  <span>Gold Shield Tier Attendance</span>
+                  <span class="text-gym-brand">720 Members</span>
+                </div>
+                <div class="w-full bg-zinc-200 dark:bg-zinc-800 h-2 rounded-full overflow-hidden">
+                  <div class="bg-gym-brand h-full rounded-full" style="width: 60%"></div>
+                </div>
+              </div>
+              <div class="space-y-1">
+                <div class="flex justify-between text-[10px]">
+                  <span>Standard Strength Tier Attendance</span>
+                  <span class="text-gym-brand">430 Members</span>
+                </div>
+                <div class="w-full bg-zinc-200 dark:bg-zinc-800 h-2 rounded-full overflow-hidden">
+                  <div class="bg-gym-brand h-full rounded-full" style="width: 35%"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- SECTION: LIVE FACILITY ZONE OCCUPANCY TELEMETRY -->
+          <div class="bg-gym-lightCard dark:bg-gym-darkCard border border-gym-lightBorder dark:border-gym-darkBorder rounded-3xl p-6 sm:p-8 shadow-md space-y-6">
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 border-b border-gym-lightBorder dark:border-gym-darkBorder pb-4">
+              <div>
+                <h3 class="text-sm font-black uppercase text-zinc-950 dark:text-white">LIVE FACILITY ZONE OCCUPANCY</h3>
+                <p class="text-xs text-zinc-400">Real-time floor sensor load and active equipment capacity</p>
+              </div>
+              <span class="px-3 py-1 bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-[10px] font-black uppercase rounded-lg">
+                Sensors Active (4 Zones)
+              </span>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-xs font-bold uppercase">
+              <!-- Zone 1 -->
+              <div class="p-4 rounded-2xl bg-zinc-100 dark:bg-zinc-900/50 border border-gym-lightBorder dark:border-gym-darkBorder space-y-2">
+                <div class="flex justify-between items-center">
+                  <span class="text-zinc-400 text-[10px]">Zone 01</span>
+                  <span class="text-red-500 text-[10px] font-black">High Load</span>
+                </div>
+                <span class="block text-sm font-black text-zinc-950 dark:text-white min-h-[40px]">Barbell Hall</span>
+                <div class="flex justify-between text-[10px] text-zinc-500 font-medium whitespace-nowrap">
+                  <span>Platforms: 21 / 25</span>
+                  <span class="font-bold text-gym-brand">84%</span>
+                </div>
+                <div class="w-full bg-zinc-200 dark:bg-zinc-800 h-1.5 rounded-full overflow-hidden">
+                  <div class="bg-red-500 h-full rounded-full" style="width: 84%"></div>
+                </div>
+              </div>
+
+              <!-- Zone 2 -->
+              <div class="p-4 rounded-2xl bg-zinc-100 dark:bg-zinc-900/50 border border-gym-lightBorder dark:border-gym-darkBorder space-y-2">
+                <div class="flex justify-between items-center">
+                  <span class="text-zinc-400 text-[10px]">Zone 02</span>
+                  <span class="text-emerald-400 text-[10px] font-black">Optimal</span>
+                </div>
+                <span class="block text-sm font-black text-zinc-950 dark:text-white min-h-[40px]">Cardio Skyline</span>
+                <div class="flex justify-between text-[10px] text-zinc-500 font-medium whitespace-nowrap">
+                  <span>Stations: 19 / 45</span>
+                  <span class="font-bold text-gym-brand">42%</span>
+                </div>
+                <div class="w-full bg-zinc-200 dark:bg-zinc-800 h-1.5 rounded-full overflow-hidden">
+                  <div class="bg-emerald-500 h-full rounded-full" style="width: 42%"></div>
+                </div>
+              </div>
+
+              <!-- Zone 3 -->
+              <div class="p-4 rounded-2xl bg-zinc-100 dark:bg-zinc-900/50 border border-gym-lightBorder dark:border-gym-darkBorder space-y-2">
+                <div class="flex justify-between items-center">
+                  <span class="text-zinc-400 text-[10px]">Zone 03</span>
+                  <span class="text-amber-500 text-[10px] font-black">Moderate</span>
+                </div>
+                <span class="block text-sm font-black text-zinc-950 dark:text-white min-h-[40px]">Sprint Turf</span>
+                <div class="flex justify-between text-[10px] text-zinc-500 font-medium whitespace-nowrap">
+                  <span>Capacity: 13 / 20</span>
+                  <span class="font-bold text-gym-brand">65%</span>
+                </div>
+                <div class="w-full bg-zinc-200 dark:bg-zinc-800 h-1.5 rounded-full overflow-hidden">
+                  <div class="bg-amber-500 h-full rounded-full" style="width: 65%"></div>
+                </div>
+              </div>
+
+              <!-- Zone 4 -->
+              <div class="p-4 rounded-2xl bg-zinc-100 dark:bg-zinc-900/50 border border-gym-lightBorder dark:border-gym-darkBorder space-y-2">
+                <div class="flex justify-between items-center">
+                  <span class="text-zinc-400 text-[10px]">Zone 04</span>
+                  <span class="text-red-500 text-[10px] font-black">Peak Load</span>
+                </div>
+                <span class="block text-sm font-black text-zinc-950 dark:text-white min-h-[40px]">Cryo & Saunas</span>
+                <div class="flex justify-between text-[10px] text-zinc-500 font-medium whitespace-nowrap">
+                  <span>Chambers: 9 / 10</span>
+                  <span class="font-bold text-gym-brand">90%</span>
+                </div>
+                <div class="w-full bg-zinc-200 dark:bg-zinc-800 h-1.5 rounded-full overflow-hidden">
+                  <div class="bg-red-500 h-full rounded-full" style="width: 90%"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- SECTION: TODAY'S CLASS SCHEDULE & LIVE TRAINER ROSTER -->
+          <div class="bg-gym-lightCard dark:bg-gym-darkCard border border-gym-lightBorder dark:border-gym-darkBorder rounded-3xl p-6 sm:p-8 shadow-md space-y-6">
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 border-b border-gym-lightBorder dark:border-gym-darkBorder pb-4">
+              <div>
+                <h3 class="text-sm font-black uppercase text-zinc-950 dark:text-white">TODAY'S SCHEDULED SESSIONS & ENROLLMENT</h3>
+                <p class="text-xs text-zinc-400">Live roster tracking with capacity reservations</p>
+              </div>
+              <button onclick="switchTab('classes')" class="text-xs font-bold text-gym-brand hover:underline uppercase">
+                Manage All Classes &rarr;
+              </button>
+            </div>
+
+            <div class="divide-y divide-gym-lightBorder dark:divide-gym-darkBorder text-xs font-bold uppercase text-zinc-700 dark:text-zinc-300">
+              <!-- Session 1 -->
+              <div class="py-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                <div class="flex items-center space-x-3 rtl:space-x-reverse">
+                  <span class="px-2.5 py-1 bg-gym-brand/10 text-gym-brand text-[10px] font-black rounded-md">06:00 AM</span>
+                  <div>
+                    <span class="block text-zinc-950 dark:text-white">HIIT Conditioning Masterclass</span>
+                    <span class="text-[10px] text-zinc-400 normal-case font-medium">Studio A // Coach David // Max 20 Lifters</span>
+                  </div>
+                </div>
+                <div class="flex items-center space-x-4 rtl:space-x-reverse self-end sm:self-auto">
+                  <span class="text-emerald-400 text-xs font-black">18 / 20 Enrolled</span>
+                  <span class="px-2 py-0.5 bg-emerald-500/10 text-emerald-400 text-[9px] font-black rounded whitespace-nowrap">In Session</span>
+                </div>
+              </div>
+
+              <!-- Session 2 -->
+              <div class="py-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                <div class="flex items-center space-x-3 rtl:space-x-reverse">
+                  <span class="px-2.5 py-1 bg-zinc-100 dark:bg-zinc-800 text-zinc-400 text-[10px] font-black rounded-md">08:30 AM</span>
+                  <div>
+                    <span class="block text-zinc-950 dark:text-white">Vinyasa Spinal Decompression</span>
+                    <span class="text-[10px] text-zinc-400 normal-case font-medium">Oak Studio // Coach Clara // Max 25 Mats</span>
+                  </div>
+                </div>
+                <div class="flex items-center space-x-4 rtl:space-x-reverse self-end sm:self-auto">
+                  <span class="text-zinc-400 text-xs font-black">14 / 25 Enrolled</span>
+                  <span class="px-2 py-0.5 bg-blue-500/10 text-blue-400 text-[9px] font-black rounded whitespace-nowrap">Upcoming</span>
+                </div>
+              </div>
+
+              <!-- Session 3 -->
+              <div class="py-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                <div class="flex items-center space-x-3 rtl:space-x-reverse">
+                  <span class="px-2.5 py-1 bg-zinc-100 dark:bg-zinc-800 text-zinc-400 text-[10px] font-black rounded-md">05:30 PM</span>
+                  <div>
+                    <span class="block text-zinc-950 dark:text-white">Heavy Compound Powerlifting</span>
+                    <span class="text-[10px] text-zinc-400 normal-case font-medium">Barbell Hall // Coach Marcus // Max 15 Decks</span>
+                  </div>
+                </div>
+                <div class="flex items-center space-x-4 rtl:space-x-reverse self-end sm:self-auto">
+                  <span class="text-red-500 text-xs font-black">15 / 15 Full</span>
+                  <span class="px-2 py-0.5 bg-red-500/10 text-red-500 text-[9px] font-black rounded whitespace-nowrap">Waitlist: 3</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- SECTION: RECENT TURNSTILE CHECK-INS FEED & FINANCIAL KPIS -->
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+            <!-- Left: Real-Time Gate Check-ins -->
+            <div class="lg:col-span-7 bg-gym-lightCard dark:bg-gym-darkCard border border-gym-lightBorder dark:border-gym-darkBorder rounded-3xl p-6 sm:p-8 shadow-md space-y-4">
+              <div class="flex justify-between items-center border-b border-gym-lightBorder dark:border-gym-darkBorder pb-3">
+                <h3 class="text-sm font-black uppercase text-zinc-950 dark:text-white">REAL-TIME ACCESS FEED</h3>
+                <span class="text-[10px] font-bold text-zinc-400 uppercase">Live Turnstile</span>
+              </div>
+
+              <div class="space-y-3 text-xs font-bold">
+                <div class="flex items-center justify-between p-3 rounded-2xl bg-zinc-100 dark:bg-zinc-900/50 border border-gym-lightBorder dark:border-gym-darkBorder">
+                  <div class="flex items-center space-x-3 rtl:space-x-reverse">
+                    <div class="w-8 h-8 rounded-full bg-gym-brand/20 text-gym-brand flex items-center justify-center font-black text-xs">AM</div>
+                    <div>
+                      <span class="block text-zinc-950 dark:text-white uppercase">Alex Mercer</span>
+                      <span class="text-[10px] text-zinc-400 font-medium">RFID Keytag // Main Turnstile</span>
+                    </div>
+                  </div>
+                  <span class="text-[10px] text-emerald-400 font-black">06:42 AM</span>
+                </div>
+
+                <div class="flex items-center justify-between p-3 rounded-2xl bg-zinc-100 dark:bg-zinc-900/50 border border-gym-lightBorder dark:border-gym-darkBorder">
+                  <div class="flex items-center space-x-3 rtl:space-x-reverse">
+                    <div class="w-8 h-8 rounded-full bg-amber-500/20 text-amber-500 flex items-center justify-center font-black text-xs">SJ</div>
+                    <div>
+                      <span class="block text-zinc-950 dark:text-white uppercase">Sarah Jenkins</span>
+                      <span class="text-[10px] text-zinc-400 font-medium">Mobile QR // North Turnstile</span>
+                    </div>
+                  </div>
+                  <span class="text-[10px] text-emerald-400 font-black">07:15 AM</span>
+                </div>
+
+                <div class="flex items-center justify-between p-3 rounded-2xl bg-zinc-100 dark:bg-zinc-900/50 border border-gym-lightBorder dark:border-gym-darkBorder">
+                  <div class="flex items-center space-x-3 rtl:space-x-reverse">
+                    <div class="w-8 h-8 rounded-full bg-purple-500/20 text-purple-500 flex items-center justify-center font-black text-xs">DS</div>
+                    <div>
+                      <span class="block text-zinc-950 dark:text-white uppercase">David Sterling</span>
+                      <span class="text-[10px] text-zinc-400 font-medium">Biometric Facial // VIP Wing</span>
+                    </div>
+                  </div>
+                  <span class="text-[10px] text-emerald-400 font-black">07:30 AM</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Right: Quick Admin Operations -->
+            <div class="lg:col-span-5 bg-gym-lightCard dark:bg-gym-darkCard border border-gym-lightBorder dark:border-gym-darkBorder rounded-3xl p-6 sm:p-8 shadow-md space-y-4 flex flex-col justify-between">
+              <div class="space-y-2">
+                <h3 class="text-sm font-black uppercase text-zinc-950 dark:text-white">COMMAND ACTIONS</h3>
+                <p class="text-xs text-zinc-400">Direct portal management triggers</p>
+              </div>
+
+              <div class="space-y-2.5 text-xs font-bold uppercase">
+                <button onclick="switchTab('members')" class="w-full py-3 px-4 rounded-xl bg-gym-brand text-white hover:bg-gym-brandHover transition-all flex items-center justify-between shadow">
+                  <span>+ Register New Member</span>
+                  <span class="text-xs">&rarr;</span>
+                </button>
+                <button onclick="switchTab('classes')" class="w-full py-3 px-4 rounded-xl bg-zinc-100 dark:bg-zinc-800 text-zinc-800 dark:text-white hover:bg-zinc-200 dark:hover:bg-zinc-700 transition-all flex items-center justify-between">
+                  <span>Schedule Class Session</span>
+                  <span class="text-xs">&rarr;</span>
+                </button>
+                <button onclick="switchTab('notifications')" class="w-full py-3 px-4 rounded-xl bg-zinc-100 dark:bg-zinc-800 text-zinc-800 dark:text-white hover:bg-zinc-200 dark:hover:bg-zinc-700 transition-all flex items-center justify-between">
+                  <span>Send Broadcast SMS</span>
+                  <span class="text-xs">&rarr;</span>
+                </button>
+                <button onclick="switchTab('reports')" class="w-full py-3 px-4 rounded-xl bg-zinc-100 dark:bg-zinc-800 text-zinc-800 dark:text-white hover:bg-zinc-200 dark:hover:bg-zinc-700 transition-all flex items-center justify-between">
+                  <span>Export Financial Audit</span>
+                  <span class="text-xs">&rarr;</span>
+                </button>
+              </div>
+
+              <div class="pt-2 border-t border-gym-lightBorder dark:border-gym-darkBorder flex justify-between items-center text-[10px] font-bold text-zinc-400 uppercase">
+                <span>System Status: Operational</span>
+                <span class="text-emerald-400">v2.4 Core Active</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB 2: MEMBER MANAGEMENT -->
+        <div id="content-members" class="hidden space-y-6">
+          <div class="space-y-1">
+            <h2 class="text-3xl font-black uppercase text-zinc-950 dark:text-white">Member Management</h2>
+            <p class="text-xs font-semibold text-zinc-400">Manage client lists, subscriptions, expirations, and logs.</p>
+          </div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+            <!-- Add Member Form -->
+            <div class="lg:col-span-5 bg-gym-lightCard dark:bg-gym-darkCard border border-gym-lightBorder dark:border-gym-darkBorder rounded-3xl p-6 shadow-md space-y-4">
+              <h3 class="text-sm font-black uppercase text-zinc-950 dark:text-white">Add Member</h3>
+              <form onsubmit="addMember(event)" class="space-y-3.5 text-xs font-bold uppercase text-zinc-700 dark:text-zinc-300">
+                <div class="space-y-1.5">
+                  <label>Full Name</label>
+                  <input type="text" id="add-member-name" required class="w-full px-4 py-2.5 bg-zinc-50 dark:bg-zinc-900/50 border border-gym-lightBorder dark:border-gym-darkBorder rounded-xl focus:outline-none focus:ring-1 focus:ring-gym-brand text-zinc-900 dark:text-white" />
+                </div>
+                <div class="space-y-1.5">
+                  <label>Email Address</label>
+                  <input type="email" id="add-member-email" required class="w-full px-4 py-2.5 bg-zinc-50 dark:bg-zinc-900/50 border border-gym-lightBorder dark:border-gym-darkBorder rounded-xl focus:outline-none focus:ring-1 focus:ring-gym-brand text-zinc-900 dark:text-white" />
+                </div>
+                <div class="space-y-1.5">
+                  <label>Plan Tier</label>
+                  <select id="add-member-plan" class="w-full px-4 py-2.5 bg-zinc-50 dark:bg-zinc-900/50 border border-gym-lightBorder dark:border-gym-darkBorder rounded-xl focus:outline-none focus:ring-1 focus:ring-gym-brand text-zinc-500">
+                    <option value="Gold Shield">Gold Shield Tier</option>
+                    <option value="Standard Fit">Standard Fit Tier</option>
+                    <option value="Basic Workout">Basic Workout Tier</option>
+                  </select>
+                </div>
+                <button type="submit" class="w-full py-3 bg-[#FFC83B] hover:bg-[#e0ae2d] text-zinc-950 font-black rounded-xl transition-colors">
+                  Register Member
+                </button>
+              </form>
+            </div>
+
+            <!-- View Members List Table -->
+            <div class="lg:col-span-7 bg-gym-lightCard dark:bg-gym-darkCard border border-gym-lightBorder dark:border-gym-darkBorder rounded-3xl p-6 shadow-md space-y-4 overflow-hidden">
+              <h3 class="text-sm font-black uppercase text-zinc-950 dark:text-white">Active Members</h3>
+              <div class="overflow-x-auto">
+                <table class="w-full text-[10px] font-bold uppercase text-zinc-700 dark:text-zinc-300">
+                  <thead class="bg-zinc-100 dark:bg-zinc-900 border-b border-gym-lightBorder dark:border-gym-darkBorder text-zinc-950 dark:text-white">
+                    <tr>
+                      <th class="p-3 text-start">Member Name</th>
+                      <th class="p-3 text-start">Plan</th>
+                      <th class="p-3 text-start">Status</th>
+                      <th class="p-3 text-center">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody class="divide-y divide-gym-lightBorder dark:divide-gym-darkBorder" id="member-table-body">
+                    <tr id="member-row-1">
+                      <td class="p-3 text-zinc-900 dark:text-white">Alex Mercer</td>
+                      <td class="p-3">Gold Shield</td>
+                      <td class="p-3"><span class="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-500 whitespace-nowrap">ACTIVE</span></td>
+                      <td class="p-3 text-center">
+                        <button onclick="deleteMember(1)" class="text-red-500 hover:underline">Delete</button>
+                      </td>
+                    </tr>
+                    <tr id="member-row-2">
+                      <td class="p-3 text-zinc-900 dark:text-white">Marcus Vance</td>
+                      <td class="p-3">Standard Fit</td>
+                      <td class="p-3"><span class="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-500 whitespace-nowrap">ACTIVE</span></td>
+                      <td class="p-3 text-center">
+                        <button onclick="deleteMember(2)" class="text-red-500 hover:underline">Delete</button>
+                      </td>
+                    </tr>
+                    <tr id="member-row-3">
+                      <td class="p-3 text-zinc-900 dark:text-white">Sarah Jenkins</td>
+                      <td class="p-3">Basic Workout</td>
+                      <td class="p-3"><span class="px-2 py-0.5 rounded bg-red-500/10 text-red-500 whitespace-nowrap">EXPIRED</span></td>
+                      <td class="p-3 text-center">
+                        <button onclick="deleteMember(3)" class="text-red-500 hover:underline">Delete</button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB 3: MEMBERSHIP PLAN MANAGEMENT -->
+        <div id="content-plans" class="hidden space-y-6">
+          <div class="space-y-1">
+            <h2 class="text-3xl font-black uppercase text-zinc-950 dark:text-white">Membership Plans</h2>
+            <p class="text-xs font-semibold text-zinc-400">Configure subscription tiers, pricing indices, and durations.</p>
+          </div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+            <!-- Add Plan Form -->
+            <div class="lg:col-span-5 bg-gym-lightCard dark:bg-gym-darkCard border border-gym-lightBorder dark:border-gym-darkBorder rounded-3xl p-6 shadow-md space-y-4">
+              <h3 class="text-sm font-black uppercase text-zinc-950 dark:text-white">Add Membership Plan</h3>
+              <form onsubmit="addPlan(event)" class="space-y-3.5 text-xs font-bold uppercase text-zinc-700 dark:text-zinc-300">
+                <div class="space-y-1.5">
+                  <label>Plan Name</label>
+                  <input type="text" id="add-plan-name" required class="w-full px-4 py-2.5 bg-zinc-50 dark:bg-zinc-900/50 border border-gym-lightBorder dark:border-gym-darkBorder rounded-xl focus:outline-none focus:ring-1 focus:ring-gym-brand text-zinc-900 dark:text-white" />
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                  <div class="space-y-1.5">
+                    <label>Price ($)</label>
+                    <input type="number" id="add-plan-price" required class="w-full px-4 py-2.5 bg-zinc-50 dark:bg-zinc-900/50 border border-gym-lightBorder dark:border-gym-darkBorder rounded-xl focus:outline-none focus:ring-1 focus:ring-gym-brand text-zinc-900 dark:text-white" />
+                  </div>
+                  <div class="space-y-1.5">
+                    <label>Duration</label>
+                    <select id="add-plan-duration" class="w-full px-4 py-2.5 bg-zinc-50 dark:bg-zinc-900/50 border border-gym-lightBorder dark:border-gym-darkBorder rounded-xl focus:outline-none focus:ring-1 focus:ring-gym-brand text-zinc-500">
+                      <option value="Monthly">Monthly</option>
+                      <option value="Yearly">Yearly</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="space-y-1.5">
+                  <label>Primary Benefit Description</label>
+                  <input type="text" id="add-plan-benefit" placeholder="e.g. Free Saunas, custom overload tracking" required class="w-full px-4 py-2.5 bg-zinc-50 dark:bg-zinc-900/50 border border-gym-lightBorder dark:border-gym-darkBorder rounded-xl focus:outline-none focus:ring-1 focus:ring-gym-brand text-zinc-900 dark:text-white" />
+                </div>
+                <button type="submit" class="w-full py-3 bg-[#FFC83B] hover:bg-[#e0ae2d] text-zinc-950 font-black rounded-xl transition-colors">
+                  Create Membership Plan
+                </button>
+              </form>
+            </div>
+
+            <!-- View Plans Table -->
+            <div class="lg:col-span-7 bg-gym-lightCard dark:bg-gym-darkCard border border-gym-lightBorder dark:border-gym-darkBorder rounded-3xl p-6 shadow-md space-y-4">
+              <h3 class="text-sm font-black uppercase text-zinc-950 dark:text-white">Active Plans</h3>
+              <div class="overflow-x-auto">
+                <table class="w-full text-[10px] font-bold uppercase text-zinc-700 dark:text-zinc-300">
+                  <thead class="bg-zinc-100 dark:bg-zinc-900 border-b border-gym-lightBorder dark:border-gym-darkBorder text-zinc-950 dark:text-white">
+                    <tr>
+                      <th class="p-3 text-start">Plan name</th>
+                      <th class="p-3 text-start">Pricing</th>
+                      <th class="p-3 text-start">Duration</th>
+                      <th class="p-3 text-start">Benefits</th>
+                    </tr>
+                  </thead>
+                  <tbody class="divide-y divide-gym-lightBorder dark:divide-gym-darkBorder" id="plans-table-body">
+                    <tr>
+                      <td class="p-3 text-zinc-900 dark:text-white font-bold">Gold Shield Tier</td>
+                      <td class="p-3">$59.00</td>
+                      <td class="p-3">Monthly</td>
+                      <td class="p-3">Steam Saunas recovery, platform pre-bookings, and consults.</td>
+                    </tr>
+                    <tr>
+                      <td class="p-3 text-zinc-900 dark:text-white font-bold">Standard Strength</td>
+                      <td class="p-3">$39.00</td>
+                      <td class="p-3">Monthly</td>
+                      <td class="p-3">Full strength platform access, free locker rooms.</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB 4: CLASS MANAGEMENT -->
+        <div id="content-classes" class="hidden space-y-6">
+          <div class="space-y-1">
+            <h2 class="text-3xl font-black uppercase text-zinc-950 dark:text-white">Class Management</h2>
+            <p class="text-xs font-semibold text-zinc-400">Schedule workouts, allocate spaces, and control capacities.</p>
+          </div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+            <!-- Add Class form -->
+            <div class="lg:col-span-5 bg-gym-lightCard dark:bg-gym-darkCard border border-gym-lightBorder dark:border-gym-darkBorder rounded-3xl p-6 shadow-md space-y-4">
+              <h3 class="text-sm font-black uppercase text-zinc-950 dark:text-white">Add Workout Class</h3>
+              <form onsubmit="addClass(event)" class="space-y-3.5 text-xs font-bold uppercase text-zinc-700 dark:text-zinc-300">
+                <div class="space-y-1.5">
+                  <label>Class Category</label>
+                  <select id="add-class-name" class="w-full px-4 py-2.5 bg-zinc-50 dark:bg-zinc-900/50 border border-gym-lightBorder dark:border-gym-darkBorder rounded-xl focus:outline-none focus:ring-1 focus:ring-gym-brand text-zinc-500">
+                    <option value="HIIT Conditioning Block">HIIT Conditioning Block</option>
+                    <option value="Powerlifting Overload">Powerlifting Overload</option>
+                    <option value="Vinyasa Posture Flow">Vinyasa Posture Flow</option>
+                  </select>
+                </div>
+                <div class="space-y-1.5">
+                  <label>Schedule Time</label>
+                  <input type="text" id="add-class-schedule" placeholder="e.g. Mon 07:00 AM - 08:00 AM" required class="w-full px-4 py-2.5 bg-zinc-50 dark:bg-zinc-900/50 border border-gym-lightBorder dark:border-gym-darkBorder rounded-xl focus:outline-none focus:ring-1 focus:ring-gym-brand text-zinc-900 dark:text-white" />
+                </div>
+                <div class="space-y-1.5">
+                  <label>Max Capacity</label>
+                  <input type="number" id="add-class-capacity" value="20" required class="w-full px-4 py-2.5 bg-zinc-50 dark:bg-zinc-900/50 border border-gym-lightBorder dark:border-gym-darkBorder rounded-xl focus:outline-none focus:ring-1 focus:ring-gym-brand text-zinc-900 dark:text-white" />
+                </div>
+                <button type="submit" class="w-full py-3 bg-[#FFC83B] hover:bg-[#e0ae2d] text-zinc-950 font-black rounded-xl transition-colors">
+                  Schedule Class
+                </button>
+              </form>
+            </div>
+
+            <!-- View Classes Table -->
+            <div class="lg:col-span-7 bg-gym-lightCard dark:bg-gym-darkCard border border-gym-lightBorder dark:border-gym-darkBorder rounded-3xl p-6 shadow-md space-y-4">
+              <h3 class="text-sm font-black uppercase text-zinc-950 dark:text-white">Scheduled Classes</h3>
+              <div class="overflow-x-auto">
+                <table class="w-full text-[10px] font-bold uppercase text-zinc-700 dark:text-zinc-300">
+                  <thead class="bg-zinc-100 dark:bg-zinc-900 border-b border-gym-lightBorder dark:border-gym-darkBorder text-zinc-950 dark:text-white">
+                    <tr>
+                      <th class="p-3 text-start">Class category</th>
+                      <th class="p-3 text-start">Schedule</th>
+                      <th class="p-3 text-start">Max Cap</th>
+                      <th class="p-3 text-center">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody class="divide-y divide-gym-lightBorder dark:divide-gym-darkBorder" id="classes-table-body">
+                    <tr id="class-row-1">
+                      <td class="p-3 text-zinc-900 dark:text-white font-bold">HIIT Conditioning</td>
+                      <td class="p-3">Mon 07:00 AM - 08:00 AM</td>
+                      <td class="p-3">20 Seats</td>
+                      <td class="p-3 text-center">
+                        <button onclick="deleteClass(1)" class="text-red-500 hover:underline">Delete</button>
+                      </td>
+                    </tr>
+                    <tr id="class-row-2">
+                      <td class="p-3 text-zinc-900 dark:text-white font-bold">Powerlifting Overload</td>
+                      <td class="p-3">Mon 05:30 PM - 07:00 PM</td>
+                      <td class="p-3">15 Seats</td>
+                      <td class="p-3 text-center">
+                        <button onclick="deleteClass(2)" class="text-red-500 hover:underline">Delete</button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB 5: TRAINER MANAGEMENT -->
+        <div id="content-trainers" class="hidden space-y-6">
+          <div class="space-y-1">
+            <h2 class="text-3xl font-black uppercase text-zinc-950 dark:text-white">Trainer Management</h2>
+            <p class="text-xs font-semibold text-zinc-400">Manage coaching specializations, profiles, and rosters.</p>
+          </div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+            <!-- Add Trainer Form -->
+            <div class="lg:col-span-5 bg-gym-lightCard dark:bg-gym-darkCard border border-gym-lightBorder dark:border-gym-darkBorder rounded-3xl p-6 shadow-md space-y-4">
+              <h3 class="text-sm font-black uppercase text-zinc-950 dark:text-white">Add Coach/Trainer</h3>
+              <form onsubmit="addTrainer(event)" class="space-y-3.5 text-xs font-bold uppercase text-zinc-700 dark:text-zinc-300">
+                <div class="space-y-1.5">
+                  <label>Full Name</label>
+                  <input type="text" id="add-trainer-name" required class="w-full px-4 py-2.5 bg-zinc-50 dark:bg-zinc-900/50 border border-gym-lightBorder dark:border-gym-darkBorder rounded-xl focus:outline-none focus:ring-1 focus:ring-gym-brand text-zinc-900 dark:text-white" />
+                </div>
+                <div class="space-y-1.5">
+                  <label>Specialization</label>
+                  <select id="add-trainer-spec" class="w-full px-4 py-2.5 bg-zinc-50 dark:bg-zinc-900/50 border border-gym-lightBorder dark:border-gym-darkBorder rounded-xl focus:outline-none focus:ring-1 focus:ring-gym-brand text-zinc-500">
+                    <option value="Olympic Powerlifting">Olympic Powerlifting</option>
+                    <option value="VO2 Metabolic Pacing">VO2 Metabolic Pacing</option>
+                    <option value="Hatha Yoga movement">Hatha Yoga movement</option>
+                  </select>
+                </div>
+                <button type="submit" class="w-full py-3 bg-[#FFC83B] hover:bg-[#e0ae2d] text-zinc-950 font-black rounded-xl transition-colors">
+                  Register Trainer
+                </button>
+              </form>
+            </div>
+
+            <!-- View Trainers List -->
+            <div class="lg:col-span-7 bg-gym-lightCard dark:bg-gym-darkCard border border-gym-lightBorder dark:border-gym-darkBorder rounded-3xl p-6 shadow-md space-y-4">
+              <h3 class="text-sm font-black uppercase text-zinc-950 dark:text-white">Expert Coaches</h3>
+              <div class="overflow-x-auto">
+                <table class="w-full text-[10px] font-bold uppercase text-zinc-700 dark:text-zinc-300">
+                  <thead class="bg-zinc-100 dark:bg-zinc-900 border-b border-gym-lightBorder dark:border-gym-darkBorder text-zinc-950 dark:text-white">
+                    <tr>
+                      <th class="p-3 text-start">Coach name</th>
+                      <th class="p-3 text-start">Specialization</th>
+                      <th class="p-3 text-center">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody class="divide-y divide-gym-lightBorder dark:divide-gym-darkBorder" id="trainers-table-body">
+                    <tr id="trainer-row-1">
+                      <td class="p-3 text-zinc-900 dark:text-white font-bold">Coach Marcus</td>
+                      <td class="p-3">VO2 Metabolic Pacing</td>
+                      <td class="p-3 text-center">
+                        <button onclick="deleteTrainer(1)" class="text-red-500 hover:underline">Delete</button>
+                      </td>
+                    </tr>
+                    <tr id="trainer-row-2">
+                      <td class="p-3 text-zinc-900 dark:text-white font-bold">Coach Sarah</td>
+                      <td class="p-3">Olympic Powerlifting</td>
+                      <td class="p-3 text-center">
+                        <button onclick="deleteTrainer(2)" class="text-red-500 hover:underline">Delete</button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB 6: BOOKING MANAGEMENT -->
+        <div id="content-bookings" class="hidden space-y-6">
+          <div class="space-y-1">
+            <h2 class="text-3xl font-black uppercase text-zinc-950 dark:text-white">Booking Management</h2>
+            <p class="text-xs font-semibold text-zinc-400">Track all member bookings, seat capacities, and cancelled reservations.</p>
+          </div>
+
+          <div class="bg-gym-lightCard dark:bg-gym-darkCard border border-gym-lightBorder dark:border-gym-darkBorder rounded-3xl p-6 shadow-md overflow-x-auto">
+            <table class="w-full text-[10px] font-bold uppercase text-zinc-700 dark:text-zinc-300">
+              <thead class="bg-zinc-100 dark:bg-zinc-900 border-b border-gym-lightBorder dark:border-gym-darkBorder text-zinc-950 dark:text-white">
+                <tr>
+                  <th class="p-3 text-start">Member</th>
+                  <th class="p-3 text-start">Class category</th>
+                  <th class="p-3 text-start">Date/Time</th>
+                  <th class="p-3 class="p-3 text-start"">Status</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-gym-lightBorder dark:divide-gym-darkBorder">
+                <tr>
+                  <td class="p-3 text-zinc-900 dark:text-white font-bold">Alex Mercer</td>
+                  <td class="p-3">HIIT Conditioning</td>
+                  <td class="p-3">Tomorrow // 07:00 AM</td>
+                  <td class="p-3"><span class="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-500 whitespace-nowrap">CONFIRMED</span></td>
+                </tr>
+                <tr>
+                  <td class="p-3 text-zinc-900 dark:text-white font-bold">Marcus Vance</td>
+                  <td class="p-3">Powerlifting Overload</td>
+                  <td class="p-3">Yesterday // 05:30 PM</td>
+                  <td class="p-3"><span class="px-2 py-0.5 rounded bg-zinc-500/15 text-zinc-400 whitespace-nowrap">COMPLETED</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- TAB 7: ATTENDANCE MANAGEMENT -->
+        <div id="content-attendance" class="hidden space-y-6">
+          <div class="space-y-1">
+            <h2 class="text-3xl font-black uppercase text-zinc-950 dark:text-white">Attendance Management</h2>
+            <p class="text-xs font-semibold text-zinc-400">Monitor active daily checks, member histories, and summaries.</p>
+          </div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+            <!-- Attendance History list -->
+            <div class="lg:col-span-8 bg-gym-lightCard dark:bg-gym-darkCard border border-gym-lightBorder dark:border-gym-darkBorder rounded-3xl p-6 shadow-md space-y-4">
+              <h3 class="text-sm font-black uppercase text-zinc-950 dark:text-white">Today's Check-ins</h3>
+              <div class="space-y-3 text-xs font-bold uppercase">
+                <div class="p-3 bg-zinc-50 dark:bg-zinc-900/50 border border-gym-lightBorder dark:border-gym-darkBorder rounded-xl flex justify-between items-center">
+                  <div>
+                    <span class="block text-zinc-900 dark:text-white">Alex Mercer</span>
+                    <span class="block text-[9px] text-zinc-400">Checked In: 06:48 AM // Card #842</span>
+                  </div>
+                  <span class="text-emerald-500 text-[10px]">VERIFIED</span>
+                </div>
+                <div class="p-3 bg-zinc-50 dark:bg-zinc-900/50 border border-gym-lightBorder dark:border-gym-darkBorder rounded-xl flex justify-between items-center">
+                  <div>
+                    <span class="block text-zinc-900 dark:text-white">Marcus Vance</span>
+                    <span class="block text-[9px] text-zinc-400">Checked In: 08:12 AM // Card #531</span>
+                  </div>
+                  <span class="text-emerald-500 text-[10px]">VERIFIED</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Attendance Reports Generator -->
+            <div class="lg:col-span-4 bg-gym-lightCard dark:bg-gym-darkCard border border-gym-lightBorder dark:border-gym-darkBorder rounded-3xl p-6 shadow-md space-y-4">
+              <h3 class="text-sm font-black uppercase text-zinc-950 dark:text-white">Attendance Reports</h3>
+              <p class="text-[10px] text-zinc-400 font-semibold leading-relaxed">Download spreadsheets aggregating monthly member checks.</p>
+              <button onclick="alert('Preparing download for monthly-attendance-report.csv');" class="w-full py-3 text-xs font-bold text-white bg-gym-brand hover:bg-gym-brandHover rounded-xl shadow-md transition-colors">
+                Export Attendance Log
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB 8: PAYMENT MANAGEMENT -->
+        <div id="content-payments" class="hidden space-y-6">
+          <div class="space-y-1">
+            <h2 class="text-3xl font-black uppercase text-zinc-950 dark:text-white">Payment Management</h2>
+            <p class="text-xs font-semibold text-zinc-400">Trace billing successes, track renewals, and export invoice records.</p>
+          </div>
+
+          <div class="bg-gym-lightCard dark:bg-gym-darkCard border border-gym-lightBorder dark:border-gym-darkBorder rounded-3xl p-6 shadow-md overflow-x-auto">
+            <table class="w-full text-[10px] font-bold uppercase text-zinc-700 dark:text-zinc-300">
+              <thead class="bg-zinc-100 dark:bg-zinc-900 border-b border-gym-lightBorder dark:border-gym-darkBorder text-zinc-950 dark:text-white">
+                <tr>
+                  <th class="p-3 text-start">Date</th>
+                  <th class="p-3 text-start">Member</th>
+                  <th class="p-3 text-start">Plan</th>
+                  <th class="p-3 text-start">Amount</th>
+                  <th class="p-3 text-start">Status</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-gym-lightBorder dark:divide-gym-darkBorder">
+                <tr>
+                  <td class="p-3 text-zinc-500">Aug 01, 2026</td>
+                  <td class="p-3 text-zinc-900 dark:text-white font-bold">Alex Mercer</td>
+                  <td class="p-3">Gold Shield Monthly</td>
+                  <td class="p-3">$59.00</td>
+                  <td class="p-3"><span class="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-500 whitespace-nowrap">SUCCESS</span></td>
+                </tr>
+                <tr>
+                  <td class="p-3 text-zinc-500">Aug 01, 2026</td>
+                  <td class="p-3 text-zinc-900 dark:text-white font-bold">Marcus Vance</td>
+                  <td class="p-3">Standard Strength</td>
+                  <td class="p-3">$39.00</td>
+                  <td class="p-3"><span class="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-500 whitespace-nowrap">SUCCESS</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- TAB 9: NOTIFICATIONS MANAGEMENT -->
+        <div id="content-notifications" class="hidden space-y-6">
+          <div class="space-y-1">
+            <h2 class="text-3xl font-black uppercase text-zinc-950 dark:text-white">Notifications Management</h2>
+            <p class="text-xs font-semibold text-zinc-400">Broadcast updates or alert members about upcoming class schedules.</p>
+          </div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+            <!-- Send Custom Notification Form -->
+            <div class="lg:col-span-7 bg-gym-lightCard dark:bg-gym-darkCard border border-gym-lightBorder dark:border-gym-darkBorder rounded-3xl p-6 shadow-md space-y-4">
+              <h3 class="text-sm font-black uppercase text-zinc-950 dark:text-white">Send Broadcast Message</h3>
+              <form onsubmit="broadcastMessage(event)" class="space-y-3.5 text-xs font-bold uppercase text-zinc-700 dark:text-zinc-300">
+                <div class="space-y-1.5">
+                  <label>Message Subject</label>
+                  <input type="text" id="notif-subject" placeholder="e.g. HVAC Maintenance Check" required class="w-full px-4 py-2.5 bg-zinc-50 dark:bg-zinc-900/50 border border-gym-lightBorder dark:border-gym-darkBorder rounded-xl focus:outline-none focus:ring-1 focus:ring-gym-brand text-zinc-900 dark:text-white" />
+                </div>
+                <div class="space-y-1.5">
+                  <label>Body Content</label>
+                  <textarea id="notif-body" rows="4" placeholder="Input alert details for portal notifications feed..." required class="w-full px-4 py-2.5 bg-zinc-50 dark:bg-zinc-900/50 border border-gym-lightBorder dark:border-gym-darkBorder rounded-xl focus:outline-none focus:ring-1 focus:ring-gym-brand text-zinc-900 dark:text-white normal-case font-medium"></textarea>
+                </div>
+                <button type="submit" class="w-full py-3.5 bg-gym-brand hover:bg-gym-brandHover text-white font-black rounded-xl transition-colors">
+                  Transmit Broadcast Message
+                </button>
+              </form>
+            </div>
+
+            <!-- Predefined Alerts triggers -->
+            <div class="lg:col-span-5 bg-gym-lightCard dark:bg-gym-darkCard border border-gym-lightBorder dark:border-gym-darkBorder rounded-3xl p-6 shadow-md space-y-4 text-xs font-bold uppercase text-zinc-700 dark:text-zinc-300">
+              <h3 class="text-sm font-black uppercase text-zinc-950 dark:text-white">Automation Triggers</h3>
+              <div class="space-y-4 pt-2">
+                <div class="flex items-center justify-between">
+                  <span>Autosend Class Reminders</span>
+                  <input type="checkbox" checked class="accent-gym-brand" />
+                </div>
+                <div class="flex items-center justify-between">
+                  <span>Membership Expiry Warnings</span>
+                  <input type="checkbox" checked class="accent-gym-brand" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB 10: FACILITIES MANAGEMENT -->
+        <div id="content-facilities" class="hidden space-y-6">
+          <div class="space-y-1">
+            <h2 class="text-3xl font-black uppercase text-zinc-950 dark:text-white">Facilities Management</h2>
+            <p class="text-xs font-semibold text-zinc-400">Manage cedar saunas, underground charges, and music systems.</p>
+          </div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+            <!-- Add Facility form -->
+            <div class="lg:col-span-5 bg-gym-lightCard dark:bg-gym-darkCard border border-gym-lightBorder dark:border-gym-darkBorder rounded-3xl p-6 shadow-md space-y-4">
+              <h3 class="text-sm font-black uppercase text-zinc-950 dark:text-white">Add Facility Space</h3>
+              <form onsubmit="addFacility(event)" class="space-y-3.5 text-xs font-bold uppercase text-zinc-700 dark:text-zinc-300">
+                <div class="space-y-1.5">
+                  <label>Facility Name</label>
+                  <input type="text" id="add-fac-name" required class="w-full px-4 py-2.5 bg-zinc-50 dark:bg-zinc-900/50 border border-gym-lightBorder dark:border-gym-darkBorder rounded-xl focus:outline-none focus:ring-1 focus:ring-gym-brand text-zinc-900 dark:text-white" />
+                </div>
+                <div class="space-y-1.5">
+                  <label>Operational Capacity</label>
+                  <input type="text" id="add-fac-capacity" placeholder="e.g. Max 12 checked-in" required class="w-full px-4 py-2.5 bg-zinc-50 dark:bg-zinc-900/50 border border-gym-lightBorder dark:border-gym-darkBorder rounded-xl focus:outline-none focus:ring-1 focus:ring-gym-brand text-zinc-900 dark:text-white" />
+                </div>
+                <button type="submit" class="w-full py-3 bg-[#FFC83B] hover:bg-[#e0ae2d] text-zinc-950 font-black rounded-xl transition-colors">
+                  Create Facility
+                </button>
+              </form>
+            </div>
+
+            <!-- View Facilities List -->
+            <div class="lg:col-span-7 bg-gym-lightCard dark:bg-gym-darkCard border border-gym-lightBorder dark:border-gym-darkBorder rounded-3xl p-6 shadow-md space-y-4">
+              <h3 class="text-sm font-black uppercase text-zinc-950 dark:text-white">Operational Spaces</h3>
+              <div class="overflow-x-auto">
+                <table class="w-full text-[10px] font-bold uppercase text-zinc-700 dark:text-zinc-300">
+                  <thead class="bg-zinc-100 dark:bg-zinc-900 border-b border-gym-lightBorder dark:border-gym-darkBorder text-zinc-950 dark:text-white">
+                    <tr>
+                      <th class="p-3 text-start">Facility</th>
+                      <th class="p-3 text-start">Operational metrics</th>
+                      <th class="p-3 text-center">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody class="divide-y divide-gym-lightBorder dark:divide-gym-darkBorder" id="facilities-table-body">
+                    <tr id="fac-row-1">
+                      <td class="p-3 text-zinc-900 dark:text-white font-bold">Cedar Steam Saunas</td>
+                      <td class="p-3">Capacity: 12 members max</td>
+                      <td class="p-3 text-center">
+                        <button onclick="deleteFacility(1)" class="text-red-500 hover:underline">Delete</button>
+                      </td>
+                    </tr>
+                    <tr id="fac-row-2">
+                      <td class="p-3 text-zinc-900 dark:text-white font-bold">EV Underground Charging</td>
+                      <td class="p-3">Capacity: 8 chargers online</td>
+                      <td class="p-3 text-center">
+                        <button onclick="deleteFacility(2)" class="text-red-500 hover:underline">Delete</button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB 11: REPORTS AREA -->
+        <div id="content-reports" class="hidden space-y-6">
+          <div class="space-y-1">
+            <h2 class="text-3xl font-black uppercase text-zinc-950 dark:text-white">Reports & Analytics</h2>
+            <p class="text-xs font-semibold text-zinc-400">Generate structural csv tables regarding membership counts and payment reports.</p>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 text-xs font-bold uppercase text-zinc-700 dark:text-zinc-300">
+            <!-- Member Reports -->
+            <div class="bg-gym-lightCard dark:bg-gym-darkCard border border-gym-lightBorder dark:border-gym-darkBorder rounded-2xl p-6 shadow-md space-y-4 flex flex-col justify-between">
+              <div class="space-y-1">
+                <span class="text-gym-brand text-xs block">MEMBER GROWTH LOGS</span>
+                <p class="text-[10px] text-zinc-400 font-medium normal-case leading-relaxed">Aggregated lists of membership intakes grouped by plan categories.</p>
+              </div>
+              <button onclick="alert('Generating Member Report spreadsheet...');" class="w-full py-2.5 bg-zinc-950 text-white border border-zinc-800 rounded-xl hover:bg-zinc-900 text-center">Download Growth CSV</button>
+            </div>
+            <!-- Revenue Reports -->
+            <div class="bg-gym-lightCard dark:bg-gym-darkCard border border-gym-lightBorder dark:border-gym-darkBorder rounded-2xl p-6 shadow-md space-y-4 flex flex-col justify-between">
+              <div class="space-y-1">
+                <span class="text-gym-brand text-xs block">REVENUE ACCRUAL LOGS</span>
+                <p class="text-[10px] text-zinc-400 font-medium normal-case leading-relaxed">Monthly lists of subscription renewals, smoothies, and add-on payments.</p>
+              </div>
+              <button onclick="alert('Generating Revenue Report spreadsheet...');" class="w-full py-2.5 bg-zinc-950 text-white border border-zinc-800 rounded-xl hover:bg-zinc-900 text-center">Download Revenue CSV</button>
+            </div>
+          </div>
+        </div>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- JAVASCRIPT LOGIC -->
+  <script>
+    // SPA Tab Navigation state switcher
+    function switchTab(targetTab) {
+      const tabs = ['overview', 'members', 'plans', 'classes', 'trainers', 'bookings', 'attendance', 'payments', 'notifications', 'facilities', 'reports'];
+      
+      tabs.forEach(tab => {
+        const contentBlock = document.getElementById('content-' + tab);
+        const button = document.getElementById('tab-' + tab);
+        
+        if (tab === targetTab) {
+          contentBlock.classList.remove('hidden');
+          button.classList.add('border-gym-brand', 'bg-zinc-50', 'dark:bg-[#161C2A]', 'text-zinc-900', 'dark:text-white');
+          button.classList.remove('border-transparent', 'text-zinc-500', 'dark:text-zinc-400');
+        } else {
+          contentBlock.classList.add('hidden');
+          button.classList.remove('border-gym-brand', 'bg-zinc-50', 'dark:bg-[#161C2A]', 'text-zinc-900', 'dark:text-white');
+          button.classList.add('border-transparent', 'text-zinc-500', 'dark:text-zinc-400');
+        }
+      });
+    }
+
+    // Header Profile Dropdown toggles
+    function toggleHeaderDropdown(event) {
+      event.stopPropagation();
+      const menu = document.getElementById('header-profile-menu');
+      const arrow = document.getElementById('header-profile-arrow');
+      
+      const isHidden = menu.classList.contains('hidden');
+      if (isHidden) {
+        menu.classList.remove('hidden');
+        arrow.classList.add('rotate-180');
+      } else {
+        menu.classList.add('hidden');
+        arrow.classList.remove('rotate-180');
+      }
+    }
+
+    function closeHeaderDropdown() {
+      const menu = document.getElementById('header-profile-menu');
+      const arrow = document.getElementById('header-profile-arrow');
+      if (menu) menu.classList.add('hidden');
+      if (arrow) arrow.classList.remove('rotate-180');
+    }
+
+    // Close dropdown on click outside
+    document.addEventListener('click', () => {
+      closeHeaderDropdown();
+    });
+
+    // --- Dynamic Member CRUD actions ---
+    function addMember(e) {
+      e.preventDefault();
+      const name = document.getElementById('add-member-name').value;
+      const email = document.getElementById('add-member-email').value;
+      const plan = document.getElementById('add-member-plan').value;
+      
+      const targetBody = document.getElementById('member-table-body');
+      const newId = Date.now();
+      
+      const newRowHtml = `
+        <tr id="member-row-${newId}">
+          <td class="p-3 text-zinc-900 dark:text-white">${name}</td>
+          <td class="p-3">${plan}</td>
+          <td class="p-3"><span class="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-500 whitespace-nowrap">ACTIVE</span></td>
+          <td class="p-3 text-center">
+            <button onclick="deleteMember(${newId})" class="text-red-500 hover:underline">Delete</button>
+          </td>
+        </tr>
+      `;
+      targetBody.insertAdjacentHTML('beforeend', newRowHtml);
+      document.getElementById('add-member-name').value = '';
+      document.getElementById('add-member-email').value = '';
+      alert("Member registered successfully!");
+    }
+
+    function deleteMember(id) {
+      const row = document.getElementById('member-row-' + id);
+      if (row && confirm("Are you sure you want to delete this member registration?")) {
+        row.remove();
+        alert("Member record deleted.");
+      }
+    }
+
+    // --- Dynamic Plan Actions ---
+    function addPlan(e) {
+      e.preventDefault();
+      const name = document.getElementById('add-plan-name').value;
+      const price = parseFloat(document.getElementById('add-plan-price').value) || 0;
+      const duration = document.getElementById('add-plan-duration').value;
+      const benefit = document.getElementById('add-plan-benefit').value;
+      
+      const targetBody = document.getElementById('plans-table-body');
+      const newRowHtml = `
+        <tr>
+          <td class="p-3 text-zinc-900 dark:text-white font-bold">${name}</td>
+          <td class="p-3">$${price.toFixed(2)}</td>
+          <td class="p-3">${duration}</td>
+          <td class="p-3">${benefit}</td>
+        </tr>
+      `;
+      targetBody.insertAdjacentHTML('beforeend', newRowHtml);
+      
+      document.getElementById('add-plan-name').value = '';
+      document.getElementById('add-plan-price').value = '';
+      document.getElementById('add-plan-benefit').value = '';
+      alert("Plan tier created successfully!");
+    }
+
+    // --- Dynamic Class Actions ---
+    function addClass(e) {
+      e.preventDefault();
+      const name = document.getElementById('add-class-name').value;
+      const schedule = document.getElementById('add-class-schedule').value;
+      const capacity = document.getElementById('add-class-capacity').value;
+      
+      const targetBody = document.getElementById('classes-table-body');
+      const newId = Date.now();
+      
+      const newRowHtml = `
+        <tr id="class-row-${newId}">
+          <td class="p-3 text-zinc-900 dark:text-white font-bold">${name}</td>
+          <td class="p-3">${schedule}</td>
+          <td class="p-3">${capacity} Seats</td>
+          <td class="p-3 text-center">
+            <button onclick="deleteClass(${newId})" class="text-red-500 hover:underline">Delete</button>
+          </td>
+        </tr>
+      `;
+      targetBody.insertAdjacentHTML('beforeend', newRowHtml);
+      document.getElementById('add-class-schedule').value = '';
+      alert("Workout class scheduled successfully!");
+    }
+
+    function deleteClass(id) {
+      const row = document.getElementById('class-row-' + id);
+      if (row && confirm("Are you sure you want to delete this scheduled class?")) {
+        row.remove();
+        alert("Scheduled workout class deleted.");
+      }
+    }
+
+    // --- Dynamic Trainer Actions ---
+    function addTrainer(e) {
+      e.preventDefault();
+      const name = document.getElementById('add-trainer-name').value;
+      const spec = document.getElementById('add-trainer-spec').value;
+      
+      const targetBody = document.getElementById('trainers-table-body');
+      const newId = Date.now();
+      
+      const newRowHtml = `
+        <tr id="trainer-row-${newId}">
+          <td class="p-3 text-zinc-900 dark:text-white font-bold">${name}</td>
+          <td class="p-3">${spec}</td>
+          <td class="p-3 text-center">
+            <button onclick="deleteTrainer(${newId})" class="text-red-500 hover:underline">Delete</button>
+          </td>
+        </tr>
+      `;
+      targetBody.insertAdjacentHTML('beforeend', newRowHtml);
+      document.getElementById('add-trainer-name').value = '';
+      alert("Coach registered successfully!");
+    }
+
+    function deleteTrainer(id) {
+      const row = document.getElementById('trainer-row-' + id);
+      if (row && confirm("Are you sure you want to delete this coach credentials?")) {
+        row.remove();
+        alert("Coach profile deleted.");
+      }
+    }
+
+    // --- Dynamic Facility Actions ---
+    function addFacility(e) {
+      e.preventDefault();
+      const name = document.getElementById('add-fac-name').value;
+      const capacity = document.getElementById('add-fac-capacity').value;
+      
+      const targetBody = document.getElementById('facilities-table-body');
+      const newId = Date.now();
+      
+      const newRowHtml = `
+        <tr id="fac-row-${newId}">
+          <td class="p-3 text-zinc-900 dark:text-white font-bold">${name}</td>
+          <td class="p-3">Capacity: ${capacity}</td>
+          <td class="p-3 text-center">
+            <button onclick="deleteFacility(${newId})" class="text-red-500 hover:underline">Delete</button>
+          </td>
+        </tr>
+      `;
+      targetBody.insertAdjacentHTML('beforeend', newRowHtml);
+      document.getElementById('add-fac-name').value = '';
+      document.getElementById('add-fac-capacity').value = '';
+      alert("Operational facility space created successfully!");
+    }
+
+    function deleteFacility(id) {
+      const row = document.getElementById('fac-row-' + id);
+      if (row && confirm("Are you sure you want to delete this facility space?")) {
+        row.remove();
+        alert("Facility space deleted.");
+      }
+    }
+
+    // --- Send custom notifications alert ---
+    function broadcastMessage(e) {
+      e.preventDefault();
+      const subject = document.getElementById('notif-subject').value;
+      alert(`Broadcast notification transmitted successfully!\nSubject: ${subject}`);
+      document.getElementById('notif-subject').value = '';
+      document.getElementById('notif-body').value = '';
+    }
+
+    // Trigger logout modal routing
+    function triggerLogout() {
+      window.location.href = "login.html";
+    }
+
+    // --- DARK MODE LOGIC ---
+    const toggleDarkMode = () => {
+      document.body.classList.add('theme-loading');
+      const isDark = document.documentElement.classList.toggle('dark');
+      localStorage.setItem('theme', isDark ? 'dark' : 'light');
+      setTimeout(() => {
+        document.body.classList.remove('theme-loading');
+      }, 100);
+    };
+
+    // --- RTL TOGGLE LOGIC ---
+    const toggleRTL = () => {
+      const currentDir = document.documentElement.getAttribute('dir') === 'rtl' ? 'ltr' : 'rtl';
+      document.documentElement.setAttribute('dir', currentDir);
+      document.documentElement.setAttribute('lang', currentDir === 'rtl' ? 'ar' : 'en');
+      localStorage.setItem('dir', currentDir);
+    };
+    // Toggle mobile sidebar menu (sliding from the right)
+    function toggleSidebarMenu() {
+      const sidebar = document.querySelector('aside');
+      const backdrop = document.getElementById('sidebar-backdrop');
+      
+      const isOpen = sidebar.classList.contains('translate-x-0');
+      if (isOpen) {
+        sidebar.classList.remove('translate-x-0');
+        sidebar.classList.add('translate-x-full');
+        backdrop.classList.add('hidden');
+      } else {
+        sidebar.classList.remove('translate-x-full');
+        sidebar.classList.add('translate-x-0');
+        backdrop.classList.remove('hidden');
+      }
+    }
+  </script>
+</body>
+</html>
+
+
+
+
+
