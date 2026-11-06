@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>FitCore - Premium Gym & Fitness Center</title>
+  <title>Membership Plans & Pricing - FitCore Gym</title>
   
   <!-- Google Fonts: Montserrat for athletic & modern styling -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -25,8 +25,8 @@
           },
           colors: {
             gym: {
-              brand: '#FBBF24',       // Energetic brand red
-              brandHover: '#D97706',  // Hover brand red
+              brand: '#EF4444',       // Energetic brand red
+              brandHover: '#DC2626',  // Hover brand red
               darkBg: '#09090B',      // Zinc-950 dark background
               darkCard: '#18181B',    // Zinc-900 card background
               darkBorder: '#27272A',  // Zinc-800 border
@@ -192,237 +192,206 @@
   </script>
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
 </head>
-<body class="bg-gym-lightBg text-zinc-800 dark:bg-gym-darkBg dark:text-zinc-200 min-h-screen transition-colors duration-300 font-sans pt-20">
+<body class="bg-gym-lightBg text-zinc-800 dark:bg-gym-darkBg dark:text-zinc-200 min-h-screen transition-colors duration-300 font-sans pt-24 sm:pt-28">
 
-  <!-- NAVIGATION HEADER -->
-  <header class="fixed top-0 start-0 end-0 z-50 w-full border-b border-gym-lightBorder dark:border-gym-darkBorder bg-gym-lightCard dark:bg-gym-darkCard transition-all duration-300">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex items-center justify-between h-20 w-full gap-4">
-        
-        <!-- COLUMN 1: LOGO (Left aligned in LTR, Right aligned in RTL) -->
-        <div class="flex-1 flex items-center justify-start">
-          <a href="index.html" class="flex items-center space-x-2.5 rtl:space-x-reverse group">
-            <!-- Unique Barbell + ECG Pulse SVG Logo -->
-            <div class="relative flex items-center justify-center text-gym-brand group-hover:scale-110 transition-transform duration-300">
-              <svg class="w-9 h-9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                <!-- Left Weight Plates -->
-                <rect x="2" y="9" width="1.5" height="6" rx="0.5" fill="currentColor" stroke="none"/>
-                <rect x="4.5" y="7" width="1.5" height="10" rx="0.5" fill="currentColor" stroke="none"/>
-                
-                <!-- Right Weight Plates -->
-                <rect x="18" y="7" width="1.5" height="10" rx="0.5" fill="currentColor" stroke="none"/>
-                <rect x="20.5" y="9" width="1.5" height="6" rx="0.5" fill="currentColor" stroke="none"/>
-                
-                <!-- Barbell Bar with ECG Heartbeat Pulse in the center -->
-                <path d="M6 12h3.5l1.5-4.5L12.5 17l1.5-11 1.5 7.5L18 12" />
-              </svg>
-              <!-- Faint red glow behind the logo matching user's image style -->
-              <span class="absolute w-6 h-6 rounded-full bg-gym-brand/20 blur-md opacity-70 group-hover:opacity-100 transition-opacity duration-300"></span>
-            </div>
-            <span class="text-xl font-extrabold tracking-tight text-zinc-950 dark:text-white transition-colors duration-300">
-              FIT<span class="text-gym-brand italic font-black">CORE</span>
-            </span>
-          </a>
-        </div>
-
-        <!-- COLUMN 2: DESKTOP NAVIGATION MENU (Perfectly centered, reduced sizes) -->
-        <nav class="hidden xl:flex items-center justify-center space-x-0.5 xl:space-x-1.5 rtl:space-x-reverse flex-initial">
-          
-          <!-- HOME DROPDOWN -->
-          <div class="relative dropdown-parent">
-            <button class="flex items-center space-x-1 rtl:space-x-reverse px-2.5 py-1.5 text-[13px] font-semibold rounded-lg hover:text-gym-brand dark:hover:text-gym-brand hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-all duration-200 focus:outline-none" aria-haspopup="true">
-              <span>Home</span>
-              <svg class="w-3.5 h-3.5 transition-transform duration-200 dropdown-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"></path>
-              </svg>
-            </button>
-            <div class="absolute start-0 mt-2 w-44 rounded-xl shadow-xl bg-gym-lightCard dark:bg-gym-darkCard border border-gym-lightBorder dark:border-gym-darkBorder py-2 opacity-0 invisible scale-95 origin-top transition-all duration-200 z-50 dropdown-menu">
-              <a href="./index.html" class="block px-4 py-2 text-xs font-semibold hover:bg-zinc-100 dark:hover:bg-zinc-800 hover:text-gym-brand transition-colors duration-150">Home 1</a>
-              <a href="./home 2.html" class="block px-4 py-2 text-xs font-semibold hover:bg-zinc-100 dark:hover:bg-zinc-800 hover:text-gym-brand transition-colors duration-150">Home 2</a>
-            </div>
+  <!-- NAVIGATION HEADER: FLOATING GLASSMORPHISM ISLAND -->
+  <header class="fixed top-0 start-0 end-0 z-50 w-full p-3 sm:p-4 transition-all duration-300 pointer-events-none">
+    <div class="max-w-7xl mx-auto rounded-2xl border border-zinc-200/80 dark:border-zinc-800/80 bg-white/85 dark:bg-zinc-900/85 backdrop-blur-xl shadow-xl shadow-zinc-950/5 dark:shadow-black/40 px-4 sm:px-6 h-16 sm:h-20 flex items-center justify-between gap-4 pointer-events-auto transition-all duration-300">
+      
+      <!-- COLUMN 1: LOGO (Left aligned in LTR, Right aligned in RTL) -->
+      <div class="flex-1 flex items-center justify-start">
+        <a href="index.html" class="flex items-center space-x-2.5 rtl:space-x-reverse group">
+          <!-- Unique Barbell + ECG Pulse SVG Logo -->
+          <div class="relative flex items-center justify-center text-gym-brand group-hover:scale-110 transition-transform duration-300">
+            <svg class="w-8 h-8 sm:w-9 sm:h-9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <!-- Left Weight Plates -->
+              <rect x="2" y="9" width="1.5" height="6" rx="0.5" fill="currentColor" stroke="none"/>
+              <rect x="4.5" y="7" width="1.5" height="10" rx="0.5" fill="currentColor" stroke="none"/>
+              
+              <!-- Right Weight Plates -->
+              <rect x="18" y="7" width="1.5" height="10" rx="0.5" fill="currentColor" stroke="none"/>
+              <rect x="20.5" y="9" width="1.5" height="6" rx="0.5" fill="currentColor" stroke="none"/>
+              
+              <!-- Barbell Bar with ECG Heartbeat Pulse in the center -->
+              <path d="M6 12h3.5l1.5-4.5L12.5 17l1.5-11 1.5 7.5L18 12" />
+            </svg>
+            <span class="absolute w-6 h-6 rounded-full bg-gym-brand/20 blur-md opacity-70 group-hover:opacity-100 transition-opacity duration-300"></span>
           </div>
-
-          <!-- ABOUT LINK -->
-          <a href="./about.html" class="px-2.5 py-1.5 text-[13px] font-semibold rounded-lg hover:text-gym-brand dark:hover:text-gym-brand hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-all duration-200">About</a>
-
-          <!-- CLASSES LINK -->
-          <a href="./classes.html" class="px-2.5 py-1.5 text-[13px] font-semibold rounded-lg hover:text-gym-brand dark:hover:text-gym-brand hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-all duration-200">Classes</a>
-
-          <!-- TRAINERS LINK -->
-          <a href="./trainers.html" class="px-2.5 py-1.5 text-[13px] font-semibold rounded-lg hover:text-gym-brand dark:hover:text-gym-brand hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-all duration-200">Trainers</a>
-
-          <!-- MEMBERSHIP PLANS LINK -->
-          <a href="./membership.html" class="px-2.5 py-1.5 text-[13px] font-semibold rounded-lg hover:text-gym-brand dark:hover:text-gym-brand hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-all duration-200">Membership Plans</a>
-
-          <!-- FACILITIES LINK -->
-          <a href="./facilities.html" class="px-2.5 py-1.5 text-[13px] font-semibold rounded-lg hover:text-gym-brand dark:hover:text-gym-brand hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-all duration-200">Facilities</a>
-
-          <!-- CONTACT LINK -->
-          <a href="./contact.html" class="px-2.5 py-1.5 text-[13px] font-semibold rounded-lg hover:text-gym-brand dark:hover:text-gym-brand hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-all duration-200">Contact</a>
-
-          <!-- DASHBOARD DROPDOWN -->
-          <div class="relative dropdown-parent">
-            <button class="flex items-center space-x-1 rtl:space-x-reverse px-2.5 py-1.5 text-[13px] font-semibold rounded-lg hover:text-gym-brand dark:hover:text-gym-brand hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-all duration-200 focus:outline-none" aria-haspopup="true">
-              <span>Dashboard</span>
-              <svg class="w-3.5 h-3.5 transition-transform duration-200 dropdown-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"></path>
-              </svg>
-            </button>
-            <div class="absolute start-0 mt-2 w-48 rounded-xl shadow-xl bg-gym-lightCard dark:bg-gym-darkCard border border-gym-lightBorder dark:border-gym-darkBorder py-2 opacity-0 invisible scale-95 origin-top transition-all duration-200 z-50 dropdown-menu">
-              <a href="./admin.html" class="flex items-center px-4 py-2 text-xs font-semibold hover:bg-zinc-100 dark:hover:bg-zinc-800 hover:text-gym-brand transition-colors duration-150">
-                <svg class="w-3.5 h-3.5 me-2.5 text-gym-brand" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
-                </svg>
-                Admin Dashboard
-              </a>
-              <a href="./user.html" class="flex items-center px-4 py-2 text-xs font-semibold hover:bg-zinc-100 dark:hover:bg-zinc-800 hover:text-gym-brand transition-colors duration-150">
-                <svg class="w-3.5 h-3.5 me-2.5 text-blue-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
-                </svg>
-                User Dashboard
-              </a>
-            </div>
-          </div>
-
-        </nav>
-
-        <!-- COLUMN 3: UTILITIES & ACTIONS (Right aligned in LTR, Left aligned in RTL) -->
-        <div class="flex-1 hidden xl:flex items-center justify-end space-x-2 rtl:space-x-reverse">
-          
-          <!-- Dark Mode Toggle Button (Desktop) -->
-          <button id="theme-toggle" class="p-2 rounded-xl hover:bg-zinc-100 dark:hover:bg-zinc-800 text-zinc-500 dark:text-zinc-400 hover:text-zinc-800 dark:hover:text-white transition-all duration-200 focus:outline-none" title="Toggle Dark/Light Mode" aria-label="Toggle dark mode">
-            <!-- Sun Icon (Show when dark) -->
-            <svg id="theme-toggle-light-icon" class="hidden w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
-              <circle cx="12" cy="12" r="5"></circle>
-                <line x1="12" y1="1" x2="12" y2="3"></line>
-                <line x1="12" y1="21" x2="12" y2="23"></line>
-                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-                <line x1="1" y1="12" x2="3" y2="12"></line>
-                <line x1="21" y1="12" x2="23" y2="12"></line>
-                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-            </svg>
-            <!-- Moon Icon (Show when light) -->
-            <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
-            </svg>
-          </button>
-
-          <!-- RTL Direction Toggle Button (Icon Only) -->
-          <button id="rtl-toggle" class="p-2 rounded-xl hover:bg-zinc-100 dark:hover:bg-zinc-800 text-zinc-500 dark:text-zinc-400 hover:text-zinc-800 dark:hover:text-white transition-all duration-200 focus:outline-none" title="Switch Page Direction (LTR/RTL)" aria-label="Toggle layout direction">
-            <!-- Split Arrow / Direction Switcher Icon -->
-            <svg class="w-5 h-5 text-zinc-500 dark:text-zinc-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
-            </svg>
-          </button>
-
-          <!-- Login CTA Button -->
-          <a href="./login.html" class="relative inline-flex items-center justify-center px-5 py-2 text-sm font-bold text-white bg-gym-brand hover:bg-gym-brandHover rounded-xl shadow-md hover:shadow-lg shadow-gym-brand/20 transition-all duration-300 transform hover:-translate-y-0.5 focus:outline-none overflow-hidden group">
-            <span class="absolute right-0 w-8 h-32 -mt-12 transition-all duration-1000 transform translate-x-12 bg-white opacity-10 rotate-12 group-hover:-translate-x-40 ease"></span>
-            <span>Login</span>
-          </a>
-        </div>
-
-        <!-- MOBILE CONTROLS & HAMBURGER (Visible on mobile/tablet/smaller viewports) -->
-        <div class="flex items-center xl:hidden ms-6">
-          <!-- Mobile Hamburger Toggle -->
-          <button id="mobile-menu-toggle" class="p-2 rounded-lg text-zinc-600 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-800 focus:outline-none focus:ring-2 focus:ring-zinc-400 dark:focus:ring-zinc-500" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open primary navigation menu">
-            <!-- Icon Open -->
-            <svg id="hamburger-icon-open" class="w-6 h-6 block" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"></path>
-            </svg>
-            <!-- Icon Close -->
-            <svg id="hamburger-icon-close" class="w-6 h-6 hidden" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
-            </svg>
-          </button>
-        </div>
-
+          <span class="text-lg sm:text-xl font-extrabold tracking-tight text-zinc-950 dark:text-white transition-colors duration-300">
+            FIT<span class="text-gym-brand italic font-black">CORE</span>
+          </span>
+        </a>
       </div>
+
+      <!-- COLUMN 2: DESKTOP NAVIGATION MENU (Centered floating pill dock) -->
+      <nav class="hidden xl:flex items-center justify-center space-x-1 rtl:space-x-reverse flex-initial bg-zinc-100/70 dark:bg-zinc-800/50 p-1.5 rounded-full border border-zinc-200/50 dark:border-zinc-700/40">
+        
+        <!-- HOME DROPDOWN -->
+        <div class="relative dropdown-parent">
+          <button class="flex items-center space-x-1 rtl:space-x-reverse px-3 py-1.5 text-xs font-semibold rounded-full hover:text-gym-brand dark:hover:text-gym-brand hover:bg-white dark:hover:bg-zinc-800 text-zinc-700 dark:text-zinc-300 transition-all duration-200 focus:outline-none" aria-haspopup="true">
+            <span>Home</span>
+            <svg class="w-3.5 h-3.5 transition-transform duration-200 dropdown-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"></path>
+            </svg>
+          </button>
+          <div class="absolute start-0 mt-2 w-44 rounded-2xl shadow-2xl bg-white/95 dark:bg-zinc-900/95 backdrop-blur-xl border border-zinc-200 dark:border-zinc-800 p-1.5 opacity-0 invisible scale-95 origin-top transition-all duration-200 z-50 dropdown-menu">
+            <a href="./index.html" class="block px-3.5 py-2 text-xs font-semibold rounded-xl hover:bg-zinc-100 dark:hover:bg-zinc-800 hover:text-gym-brand transition-colors duration-150">Home 1</a>
+            <a href="./home 2.html" class="block px-3.5 py-2 text-xs font-semibold rounded-xl hover:bg-zinc-100 dark:hover:bg-zinc-800 hover:text-gym-brand transition-colors duration-150">Home 2</a>
+          </div>
+        </div>
+
+        <a href="./about.html" class="px-3 py-1.5 text-xs font-semibold rounded-full hover:text-gym-brand dark:hover:text-gym-brand hover:bg-white dark:hover:bg-zinc-800 text-zinc-700 dark:text-zinc-300 transition-all duration-200">About</a>
+        <a href="./classes.html" class="px-3 py-1.5 text-xs font-semibold rounded-full hover:text-gym-brand dark:hover:text-gym-brand hover:bg-white dark:hover:bg-zinc-800 text-zinc-700 dark:text-zinc-300 transition-all duration-200">Classes</a>
+        <a href="./trainers.html" class="px-3 py-1.5 text-xs font-semibold rounded-full hover:text-gym-brand dark:hover:text-gym-brand hover:bg-white dark:hover:bg-zinc-800 text-zinc-700 dark:text-zinc-300 transition-all duration-200">Trainers</a>
+        <a href="./membership.html" class="px-3 py-1.5 text-xs font-semibold rounded-full hover:text-gym-brand dark:hover:text-gym-brand hover:bg-white dark:hover:bg-zinc-800 text-zinc-700 dark:text-zinc-300 transition-all duration-200">Membership Plans</a>
+        <a href="./contact.html" class="px-3 py-1.5 text-xs font-semibold rounded-full hover:text-gym-brand dark:hover:text-gym-brand hover:bg-white dark:hover:bg-zinc-800 text-zinc-700 dark:text-zinc-300 transition-all duration-200">Contact</a>
+
+        <!-- DASHBOARD DROPDOWN -->
+        <div class="relative dropdown-parent">
+          <button class="flex items-center space-x-1 rtl:space-x-reverse px-3 py-1.5 text-xs font-semibold rounded-full hover:text-gym-brand dark:hover:text-gym-brand hover:bg-white dark:hover:bg-zinc-800 text-zinc-700 dark:text-zinc-300 transition-all duration-200 focus:outline-none" aria-haspopup="true">
+            <span>Dashboard</span>
+            <svg class="w-3.5 h-3.5 transition-transform duration-200 dropdown-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"></path>
+            </svg>
+          </button>
+          <div class="absolute start-0 mt-2 w-48 rounded-2xl shadow-2xl bg-white/95 dark:bg-zinc-900/95 backdrop-blur-xl border border-zinc-200 dark:border-zinc-800 p-1.5 opacity-0 invisible scale-95 origin-top transition-all duration-200 z-50 dropdown-menu">
+            <a href="./admin.html" class="flex items-center px-3.5 py-2 text-xs font-semibold rounded-xl hover:bg-zinc-100 dark:hover:bg-zinc-800 hover:text-gym-brand transition-colors duration-150">
+              <svg class="w-3.5 h-3.5 me-2.5 text-gym-brand" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+              </svg>
+              Admin Dashboard
+            </a>
+            <a href="./user.html" class="flex items-center px-3.5 py-2 text-xs font-semibold rounded-xl hover:bg-zinc-100 dark:hover:bg-zinc-800 hover:text-gym-brand transition-colors duration-150">
+              <svg class="w-3.5 h-3.5 me-2.5 text-blue-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+              </svg>
+              User Dashboard
+            </a>
+          </div>
+        </div>
+
+      </nav>
+
+      <!-- COLUMN 3: UTILITIES & ACTIONS -->
+      <div class="flex items-center justify-end space-x-2 rtl:space-x-reverse">
+        
+        <!-- Dark Mode Toggle Button (Desktop Only) -->
+        <button id="theme-toggle" class="hidden xl:inline-flex p-2.5 rounded-full hover:bg-zinc-100 dark:hover:bg-zinc-800 text-zinc-600 dark:text-zinc-300 hover:text-gym-brand dark:hover:text-gym-brand transition-all duration-200 border border-zinc-200/60 dark:border-zinc-700/60 focus:outline-none" title="Toggle Dark/Light Mode" aria-label="Toggle dark mode">
+          <!-- Sun Icon (Show when dark) -->
+          <svg id="theme-toggle-light-icon" class="hidden w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+          <!-- Moon Icon (Show when light) -->
+          <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+          </svg>
+        </button>
+
+        <!-- RTL Direction Toggle Button (Desktop Only) -->
+        <button id="rtl-toggle" class="hidden xl:inline-flex p-2.5 rounded-full hover:bg-zinc-100 dark:hover:bg-zinc-800 text-zinc-600 dark:text-zinc-300 hover:text-gym-brand dark:hover:text-gym-brand transition-all duration-200 border border-zinc-200/60 dark:border-zinc-700/60 focus:outline-none" title="Switch Page Direction (LTR/RTL)" aria-label="Toggle layout direction">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
+          </svg>
+        </button>
+
+        <!-- Login CTA Button (Desktop Only) -->
+        <a href="./login.html" class="hidden xl:inline-flex relative items-center justify-center px-5 py-2 text-xs font-bold text-white bg-gym-brand hover:bg-gym-brandHover rounded-full shadow-md hover:shadow-lg shadow-gym-brand/25 transition-all duration-300 transform hover:-translate-y-0.5 focus:outline-none overflow-hidden group">
+          <span class="absolute right-0 w-8 h-32 -mt-12 transition-all duration-1000 transform translate-x-12 bg-white opacity-10 rotate-12 group-hover:-translate-x-40 ease"></span>
+          <span>Login</span>
+        </a>
+
+        <!-- Mobile Hamburger Toggle (Mobile Only) -->
+        <button id="mobile-menu-toggle" class="xl:hidden p-2.5 rounded-full text-zinc-600 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-800 border border-zinc-200/60 dark:border-zinc-700/60 focus:outline-none" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open primary navigation menu">
+          <svg id="hamburger-icon-open" class="w-5 h-5 block" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"></path>
+          </svg>
+          <svg id="hamburger-icon-close" class="w-5 h-5 hidden" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </button>
+      </div>
+
     </div>
 
-    <!-- MOBILE NAVIGATION MENU -->
-    <div id="mobile-menu" class="hidden xl:hidden absolute top-20 start-0 end-0 z-40 border-t border-gym-lightBorder dark:border-gym-darkBorder bg-gym-lightCard dark:bg-gym-darkCard transition-all duration-300 h-[calc(100dvh-80px)] flex flex-col animate-fade-in">
+    <!-- MOBILE NAVIGATION MENU: FLOATING SHEET -->
+    <div id="mobile-menu" class="hidden xl:hidden fixed inset-x-3 sm:inset-x-6 top-20 sm:top-24 z-40 rounded-2xl border border-zinc-200/80 dark:border-zinc-800/80 bg-white/95 dark:bg-zinc-900/95 backdrop-blur-2xl shadow-2xl p-4 transition-all duration-300 max-h-[calc(100dvh-100px)] flex flex-col pointer-events-auto animate-fade-in overflow-hidden">
       
-      <!-- Scrollable Links Container -->
-      <div class="flex-1 overflow-y-auto mobile-menu-scroll px-4 pt-2 pb-4 space-y-2">
+      <div class="flex-1 overflow-y-auto mobile-menu-scroll px-1 pt-1 pb-3 space-y-1.5">
         
         <!-- Mobile Dropdown: Home -->
         <div>
-          <button class="mobile-dropdown-btn w-full flex items-center justify-between px-4 py-3 rounded-lg text-base font-semibold hover:bg-zinc-100 dark:hover:bg-zinc-800 hover:text-gym-brand transition-colors">
+          <button class="mobile-dropdown-btn w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-sm font-semibold hover:bg-zinc-100 dark:hover:bg-zinc-800 hover:text-gym-brand transition-colors">
             <span>Home</span>
             <svg class="w-4 h-4 transition-transform duration-200 mobile-dropdown-arrow" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path>
             </svg>
           </button>
-          <div class="mobile-dropdown-content hidden pl-6 rtl:pr-6 rtl:pl-0 mt-1 space-y-1 bg-zinc-50/50 dark:bg-zinc-900/50 rounded-lg">
-            <a href="index.html" class="block px-4 py-2 text-sm font-medium text-zinc-600 dark:text-zinc-400 hover:text-gym-brand">Home 1</a>
-            <a href="home 2.html" class="block px-4 py-2 text-sm font-medium text-zinc-600 dark:text-zinc-400 hover:text-gym-brand">Home 2</a>
+          <div class="mobile-dropdown-content hidden pl-5 rtl:pr-5 rtl:pl-0 mt-1 space-y-1 bg-zinc-50 dark:bg-zinc-800/50 rounded-xl p-1.5">
+            <a href="index.html" class="block px-3 py-2 text-xs font-semibold rounded-lg text-zinc-600 dark:text-zinc-400 hover:text-gym-brand">Home 1</a>
+            <a href="home 2.html" class="block px-3 py-2 text-xs font-semibold rounded-lg text-zinc-600 dark:text-zinc-400 hover:text-gym-brand">Home 2</a>
           </div>
         </div>
 
-        <!-- Other Static Mobile Links -->
-        <a href="./about.html" class="block px-4 py-3 rounded-lg text-base font-semibold hover:bg-zinc-100 dark:hover:bg-zinc-800 hover:text-gym-brand transition-colors">About</a>
-        <a href="./classes.html" class="block px-4 py-3 rounded-lg text-base font-semibold hover:bg-zinc-100 dark:hover:bg-zinc-800 hover:text-gym-brand transition-colors">Classes</a>
-        <a href="./trainers.html" class="block px-4 py-3 rounded-lg text-base font-semibold hover:bg-zinc-100 dark:hover:bg-zinc-800 hover:text-gym-brand transition-colors">Trainers</a>
-        <a href="./membership.html" class="block px-4 py-3 rounded-lg text-base font-semibold hover:bg-zinc-100 dark:hover:bg-zinc-800 hover:text-gym-brand transition-colors">Membership Plans</a>
-        <a href="./facilities.html" class="block px-4 py-3 rounded-lg text-base font-semibold hover:bg-zinc-100 dark:hover:bg-zinc-800 hover:text-gym-brand transition-colors">Facilities</a>
-        <a href="./contact.html" class="block px-4 py-3 rounded-lg text-base font-semibold hover:bg-zinc-100 dark:hover:bg-zinc-800 hover:text-gym-brand transition-colors">Contact</a>
+        <a href="./about.html" class="block px-3.5 py-2.5 rounded-xl text-sm font-semibold hover:bg-zinc-100 dark:hover:bg-zinc-800 hover:text-gym-brand transition-colors">About</a>
+        <a href="./classes.html" class="block px-3.5 py-2.5 rounded-xl text-sm font-semibold hover:bg-zinc-100 dark:hover:bg-zinc-800 hover:text-gym-brand transition-colors">Classes</a>
+        <a href="./trainers.html" class="block px-3.5 py-2.5 rounded-xl text-sm font-semibold hover:bg-zinc-100 dark:hover:bg-zinc-800 hover:text-gym-brand transition-colors">Trainers</a>
+        <a href="./membership.html" class="block px-3.5 py-2.5 rounded-xl text-sm font-semibold hover:bg-zinc-100 dark:hover:bg-zinc-800 hover:text-gym-brand transition-colors">Membership Plans</a>
+        <a href="./contact.html" class="block px-3.5 py-2.5 rounded-xl text-sm font-semibold hover:bg-zinc-100 dark:hover:bg-zinc-800 hover:text-gym-brand transition-colors">Contact</a>
 
         <!-- Mobile Dropdown: Dashboard -->
         <div>
-          <button class="mobile-dropdown-btn w-full flex items-center justify-between px-4 py-3 rounded-lg text-base font-semibold hover:bg-zinc-100 dark:hover:bg-zinc-800 hover:text-gym-brand transition-colors">
+          <button class="mobile-dropdown-btn w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-sm font-semibold hover:bg-zinc-100 dark:hover:bg-zinc-800 hover:text-gym-brand transition-colors">
             <span>Dashboard</span>
             <svg class="w-4 h-4 transition-transform duration-200 mobile-dropdown-arrow" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path>
             </svg>
           </button>
-          <div class="mobile-dropdown-content hidden pl-6 rtl:pr-6 rtl:pl-0 mt-1 space-y-1 bg-zinc-50/50 dark:bg-zinc-900/50 rounded-lg">
-            <a href="./admin.html" class="block px-4 py-2 text-sm font-medium text-zinc-600 dark:text-zinc-400 hover:text-gym-brand">Admin Dashboard</a>
-            <a href="./user.html" class="block px-4 py-2 text-sm font-medium text-zinc-600 dark:text-zinc-400 hover:text-gym-brand">User Dashboard</a>
+          <div class="mobile-dropdown-content hidden pl-5 rtl:pr-5 rtl:pl-0 mt-1 space-y-1 bg-zinc-50 dark:bg-zinc-800/50 rounded-xl p-1.5">
+            <a href="./admin.html" class="block px-3 py-2 text-xs font-semibold rounded-lg text-zinc-600 dark:text-zinc-400 hover:text-gym-brand">Admin Dashboard</a>
+            <a href="./user.html" class="block px-3 py-2 text-xs font-semibold rounded-lg text-zinc-600 dark:text-zinc-400 hover:text-gym-brand">User Dashboard</a>
           </div>
         </div>
 
       </div>
 
-      <!-- Fixed Bottom Action Controls (Theme, RTL, Login) -->
-      <div class="border-t border-gym-lightBorder dark:border-gym-darkBorder bg-gym-lightCard dark:bg-gym-darkCard p-4 space-y-4">
-        <div class="flex items-center justify-between gap-4">
-          <!-- Mobile Theme Toggle -->
-          <button id="mobile-theme-toggle" class="flex-1 flex items-center justify-center py-2.5 px-4 rounded-xl border border-zinc-200 dark:border-zinc-700 hover:bg-zinc-100 dark:hover:bg-zinc-800 text-zinc-500 dark:text-zinc-400 hover:text-zinc-800 dark:hover:text-white transition-all duration-200 focus:outline-none" aria-label="Toggle dark mode">
-            <!-- Sun Icon (Show when dark) -->
+      <!-- Bottom Action Controls -->
+      <div class="border-t border-zinc-200/80 dark:border-zinc-800/80 pt-3 mt-1 space-y-3">
+        <div class="flex items-center justify-between gap-3">
+          <button id="mobile-theme-toggle" class="flex-1 flex items-center justify-center py-2.5 px-3 rounded-xl border border-zinc-200 dark:border-zinc-700 hover:bg-zinc-100 dark:hover:bg-zinc-800 text-zinc-500 dark:text-zinc-400 transition-all duration-200 focus:outline-none" aria-label="Toggle dark mode">
             <svg id="mobile-theme-toggle-light-icon" class="hidden w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
               <circle cx="12" cy="12" r="5"></circle>
-                <line x1="12" y1="1" x2="12" y2="3"></line>
-                <line x1="12" y1="21" x2="12" y2="23"></line>
-                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-                <line x1="1" y1="12" x2="3" y2="12"></line>
-                <line x1="21" y1="12" x2="23" y2="12"></line>
-                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+              <line x1="12" y1="1" x2="12" y2="3"></line>
+              <line x1="12" y1="21" x2="12" y2="23"></line>
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+              <line x1="1" y1="12" x2="3" y2="12"></line>
+              <line x1="21" y1="12" x2="23" y2="12"></line>
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
             </svg>
-            <!-- Moon Icon (Show when light) -->
             <svg id="mobile-theme-toggle-dark-icon" class="hidden w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
             </svg>
           </button>
 
-          <!-- Mobile RTL Direction Toggle (Icon Only) -->
-          <button id="mobile-rtl-toggle" class="flex-1 flex items-center justify-center py-2.5 px-4 rounded-xl border border-zinc-200 dark:border-zinc-700 hover:bg-zinc-100 dark:hover:bg-zinc-800 text-zinc-500 dark:text-zinc-400 hover:text-zinc-800 dark:hover:text-white transition-all duration-200 focus:outline-none" aria-label="Toggle layout direction">
+          <button id="mobile-rtl-toggle" class="flex-1 flex items-center justify-center py-2.5 px-3 rounded-xl border border-zinc-200 dark:border-zinc-700 hover:bg-zinc-100 dark:hover:bg-zinc-800 text-zinc-500 dark:text-zinc-400 transition-all duration-200 focus:outline-none" aria-label="Toggle layout direction">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
             </svg>
           </button>
         </div>
 
-        <div class="flex flex-col">
-          <!-- Mobile Login -->
-          <a href="./login.html" class="w-full text-center py-3 text-base font-bold text-white bg-gym-brand hover:bg-gym-brandHover rounded-xl shadow-md transition-all duration-300">
-            Login
-          </a>
-        </div>
+        <a href="./login.html" class="block w-full text-center py-2.5 text-sm font-bold text-white bg-gym-brand hover:bg-gym-brandHover rounded-xl shadow-md transition-all duration-300">
+          Login
+        </a>
       </div>
     </div>
   </header>
@@ -430,12 +399,12 @@
   <!-- SECTION 1: HERO / PRICING OVERVIEW HEADER -->
   <section id="pricing-hero" class="relative py-24 bg-gym-lightBg text-zinc-800 dark:bg-gym-darkBg dark:text-zinc-200 transition-colors duration-300">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-4">
-      <span class="text-xs font-bold text-gym-brand uppercase tracking-widest">Pricing & Tiers</span>
+      <span class="text-xs font-bold text-gym-brand uppercase tracking-widest">Transparent Membership Plans</span>
       <h1 class="text-4xl sm:text-5xl font-black text-zinc-950 dark:text-white uppercase tracking-tight leading-none">
-        SELECT YOUR INTENSITY <span class="text-gym-brand italic">BLOCK</span>
+        CHOOSE YOUR <span class="text-gym-brand italic">TRAINING TIER</span>
       </h1>
       <p class="max-w-2xl mx-auto text-sm sm:text-base text-zinc-500 dark:text-zinc-400 font-medium">
-        Choose a membership tier engineered for your fitness goals. No enrollment fees, transparent pricing, and flexible freezing.
+        Flexible, goal-driven plans engineered for every fitness journey. Enjoy transparent rates, zero enrollment fees, and seamless freeze options.
       </p>
     </div>
   </section>
@@ -457,29 +426,29 @@
         <!-- Copy Right -->
         <div class="lg:col-span-7 space-y-6">
           <div class="space-y-2">
-            <span class="text-xs font-bold uppercase tracking-widest text-gym-brand">Base Tier</span>
-            <h2 class="text-3xl font-extrabold text-zinc-950 dark:text-white uppercase">BASIC MEMBERSHIP</h2>
-            <p class="text-sm font-semibold text-zinc-400">Essential strength access // Self-directed training</p>
+            <span class="text-xs font-bold uppercase tracking-widest text-gym-brand">Foundational Tier</span>
+            <h2 class="text-3xl font-extrabold text-zinc-950 dark:text-white uppercase">ESSENTIAL MEMBERSHIP</h2>
+            <p class="text-sm font-semibold text-zinc-400">Essential Floor Access // Self-Directed Training</p>
           </div>
           <p class="text-sm leading-relaxed text-zinc-600 dark:text-zinc-400 font-medium">
-            Perfect for dedicated lifters who have their own training routines. The Basic Tier gives you unrestricted access to our elite barbell racks, dumbbells up to 150 lbs, standard cardio equipment, and pristine locker facilities.
+            Perfect for self-motivated athletes who follow their own training roadmap. The Essential plan gives you full access to our calibrated barbell platforms, dumbbells up to 150 lbs, performance cardio decks, and luxury locker suites.
           </p>
           <ul class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs font-bold uppercase text-zinc-700 dark:text-zinc-300">
             <li class="flex items-center space-x-2.5 rtl:space-x-reverse">
               <span class="w-2 h-2 rounded-full bg-gym-brand"></span>
-              <span>Full Free-Weights Floor Access</span>
+              <span>Full Free-Weights & Rack Access</span>
             </li>
             <li class="flex items-center space-x-2.5 rtl:space-x-reverse">
               <span class="w-2 h-2 rounded-full bg-gym-brand"></span>
-              <span>Standard Cardio Decks</span>
+              <span>Smart Cardio & Conditioning Decks</span>
             </li>
             <li class="flex items-center space-x-2.5 rtl:space-x-reverse">
               <span class="w-2 h-2 rounded-full bg-gym-brand"></span>
-              <span>Premium Locker Rooms</span>
+              <span>Executive Lockers & Rain Showers</span>
             </li>
             <li class="flex items-center space-x-2.5 rtl:space-x-reverse">
               <span class="w-2 h-2 rounded-full bg-gym-brand"></span>
-              <span>1 Free Fitness Consultation</span>
+              <span>Complimentary Fitness Assessment</span>
             </li>
           </ul>
         </div>
@@ -494,29 +463,29 @@
         <!-- Copy Left -->
         <div class="lg:col-span-7 space-y-6 order-last lg:order-first">
           <div class="space-y-2">
-            <span class="text-xs font-bold uppercase tracking-widest text-gym-brand">Recommended Tier</span>
-            <h2 class="text-3xl font-extrabold text-zinc-950 dark:text-white uppercase">STANDARD MEMBERSHIP</h2>
-            <p class="text-sm font-semibold text-zinc-400">Class Access Tier // Structured Athletic Programming</p>
+            <span class="text-xs font-bold uppercase tracking-widest text-gym-brand">Most Popular Plan</span>
+            <h2 class="text-3xl font-extrabold text-zinc-950 dark:text-white uppercase">ALL-ACCESS STUDIO PASS</h2>
+            <p class="text-sm font-semibold text-zinc-400">Full Floor & Studio Classes // Group Energy</p>
           </div>
           <p class="text-sm leading-relaxed text-zinc-600 dark:text-zinc-400 font-medium">
-            Designed for those who want the energy of group fitness combined with unrestricted gym access. The Standard Tier unlocks our entire weekly class catalog, including Yoga, Zumba, HIIT, and Functional Strength, plus one monthly session in our recovery lounge.
+            Designed for members who thrive on community energy and diverse training stimuli. Includes full gym floor privileges, unlimited weekly studio classes—from Vinyasa Yoga and Zumba to Barbell Strength and HIIT—and a monthly recovery lounge pass.
           </p>
           <ul class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs font-bold uppercase text-zinc-700 dark:text-zinc-300">
             <li class="flex items-center space-x-2.5 rtl:space-x-reverse">
               <span class="w-2 h-2 rounded-full bg-gym-brand"></span>
-              <span>All General Gym Floor Access</span>
+              <span>Unlimited Gym Floor Access</span>
             </li>
             <li class="flex items-center space-x-2.5 rtl:space-x-reverse">
               <span class="w-2 h-2 rounded-full bg-gym-brand"></span>
-              <span>Unlimited Group Studio Classes</span>
+              <span>Unlimited Weekly Studio Classes</span>
             </li>
             <li class="flex items-center space-x-2.5 rtl:space-x-reverse">
               <span class="w-2 h-2 rounded-full bg-gym-brand"></span>
-              <span>1 Recovery Lounge Credit / Mo</span>
+              <span>Monthly Contrast Therapy Credit</span>
             </li>
             <li class="flex items-center space-x-2.5 rtl:space-x-reverse">
               <span class="w-2 h-2 rounded-full bg-gym-brand"></span>
-              <span>Pulse App Workout Sync</span>
+              <span>FitCore Member App & Class Booking</span>
             </li>
           </ul>
         </div>
@@ -543,7 +512,7 @@
           <div class="absolute inset-0 bg-gym-brand/5 rounded-3xl blur-3xl opacity-50"></div>
           <div class="relative rounded-3xl overflow-hidden shadow-2xl border border-zinc-200 dark:border-zinc-800 group">
             <img src="images/membership_premium.jpg" alt="Premium private workout pod" class="w-full h-[320px] object-cover group-hover:scale-105 transition-transform duration-700">
-            <div class="absolute bottom-4 start-4 bg-zinc-950 text-amber-400 text-xs font-black uppercase tracking-widest px-4 py-2 rounded-xl border border-zinc-800 shadow-lg">
+            <div class="absolute bottom-4 start-4 bg-zinc-950 text-gym-brand text-xs font-black uppercase tracking-widest px-4 py-2 rounded-xl border border-zinc-800 shadow-lg">
               $99 / Month
             </div>
           </div>
@@ -551,29 +520,29 @@
         <!-- Copy Right -->
         <div class="lg:col-span-7 space-y-6">
           <div class="space-y-2">
-            <span class="text-xs font-bold uppercase tracking-widest text-amber-500">Elite Performance Tier</span>
-            <h2 class="text-3xl font-extrabold text-zinc-950 dark:text-white uppercase">PREMIUM MEMBERSHIP</h2>
-            <p class="text-sm font-semibold text-zinc-400">All-Inclusive VIP // 1-on-1 Coaching & Recovery</p>
+            <span class="text-xs font-bold uppercase tracking-widest text-gym-brand">VIP Performance Tier</span>
+            <h2 class="text-3xl font-extrabold text-zinc-950 dark:text-white uppercase">PERFORMANCE ELITE</h2>
+            <p class="text-sm font-semibold text-zinc-400">All-Inclusive VIP // Dedicated Coaching & Recovery</p>
           </div>
           <p class="text-sm leading-relaxed text-zinc-600 dark:text-zinc-400 font-medium">
-            For individuals committed to absolute results. The Premium Tier pairs unrestricted gym and class access with a dedicated personal strength coach, fully customized nutritional mapping, and unlimited utilization of our premium recovery saunas and massage lounge.
+            For individuals committed to reaching peak performance with expert guidance. The Performance Elite tier pairs unlimited gym and class access with dedicated 1-on-1 personal training, custom nutritional programming, and full access to our infrared saunas and cold plunges.
           </p>
           <ul class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs font-bold uppercase text-zinc-700 dark:text-zinc-300">
             <li class="flex items-center space-x-2.5 rtl:space-x-reverse">
               <span class="w-2 h-2 rounded-full bg-gym-brand"></span>
-              <span>1-on-1 Coach Biweekly Check-ins</span>
+              <span>1-on-1 Dedicated Coaching Sessions</span>
             </li>
             <li class="flex items-center space-x-2.5 rtl:space-x-reverse">
               <span class="w-2 h-2 rounded-full bg-gym-brand"></span>
-              <span>Unlimited Recovery Lounge Access</span>
+              <span>Unlimited Infrared Sauna & Plunge Suite</span>
             </li>
             <li class="flex items-center space-x-2.5 rtl:space-x-reverse">
               <span class="w-2 h-2 rounded-full bg-gym-brand"></span>
-              <span>Tailored Nutrition & Meal Plans</span>
+              <span>Customized Nutrition & Macro Guidance</span>
             </li>
             <li class="flex items-center space-x-2.5 rtl:space-x-reverse">
               <span class="w-2 h-2 rounded-full bg-gym-brand"></span>
-              <span>Premium Locker & Towel Service</span>
+              <span>Reserved Lockers & Daily Towel Service</span>
             </li>
           </ul>
         </div>
@@ -585,8 +554,8 @@
   <section id="plan-comparison" class="py-20 bg-gym-lightBg text-zinc-800 dark:bg-gym-darkBg dark:text-zinc-200 transition-colors duration-300 border-t border-gym-lightBorder dark:border-gym-darkBorder">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center space-y-2 mb-12">
-        <span class="text-xs font-bold text-gym-brand uppercase tracking-widest">Compare Plans</span>
-        <h2 class="text-3xl font-extrabold text-zinc-950 dark:text-white uppercase leading-none">THE FEATURE MATRIX</h2>
+        <span class="text-xs font-bold text-gym-brand uppercase tracking-widest">Plan Breakdown</span>
+        <h2 class="text-3xl font-extrabold text-zinc-950 dark:text-white uppercase leading-none">DETAILED FEATURE COMPARISON</h2>
       </div>
 
       <!-- Feature Grid Comparison -->
@@ -594,54 +563,54 @@
         <table class="w-full text-start border-collapse text-xs font-bold uppercase">
           <thead>
             <tr class="border-b border-gym-lightBorder dark:border-gym-darkBorder text-zinc-500 dark:text-zinc-400">
-              <th class="py-4 text-start font-black text-sm">Feature Core</th>
-              <th class="py-4 text-center">Basic ($39)</th>
-              <th class="py-4 text-center">Standard ($59)</th>
-              <th class="py-4 text-center text-amber-500">Premium ($99)</th>
+              <th class="py-4 text-start font-black text-sm">Included Privileges</th>
+              <th class="py-4 text-center">Essential ($39/mo)</th>
+              <th class="py-4 text-center">All-Access ($59/mo)</th>
+              <th class="py-4 text-center text-gym-brand">Elite ($99/mo)</th>
             </tr>
           </thead>
           <tbody class="divide-y divide-gym-lightBorder dark:divide-gym-darkBorder text-zinc-900 dark:text-zinc-100">
             <!-- Row 1 -->
             <tr>
-              <td class="py-4 text-start">General Gym Floor Access</td>
+              <td class="py-4 text-start">Open Gym Floor & Turf Access</td>
               <td class="py-4 text-center text-gym-brand">✔</td>
               <td class="py-4 text-center text-gym-brand">✔</td>
               <td class="py-4 text-center text-gym-brand">✔</td>
             </tr>
             <!-- Row 2 -->
             <tr>
-              <td class="py-4 text-start">Barbells & Dumbbell Decks</td>
+              <td class="py-4 text-start">Olympic Barbells & Free Weights (up to 150 lbs)</td>
               <td class="py-4 text-center text-gym-brand">✔</td>
               <td class="py-4 text-center text-gym-brand">✔</td>
               <td class="py-4 text-center text-gym-brand">✔</td>
             </tr>
             <!-- Row 3 -->
             <tr>
-              <td class="py-4 text-start">Group Fitness Classes Catalog</td>
+              <td class="py-4 text-start">Unlimited Studio Classes (Yoga, HIIT, Strength)</td>
               <td class="py-4 text-center text-zinc-300 dark:text-zinc-700">✖</td>
               <td class="py-4 text-center text-gym-brand">✔</td>
               <td class="py-4 text-center text-gym-brand">✔</td>
             </tr>
             <!-- Row 4 -->
             <tr>
-              <td class="py-4 text-start">Monthly Recovery Lounge Credits</td>
+              <td class="py-4 text-start">Infrared Sauna & Cold Plunge Access</td>
               <td class="py-4 text-center text-zinc-300 dark:text-zinc-700">✖</td>
-              <td class="py-4 text-center">1 Session</td>
+              <td class="py-4 text-center">1 Session / Mo</td>
               <td class="py-4 text-center text-gym-brand">Unlimited</td>
             </tr>
             <!-- Row 5 -->
             <tr>
-              <td class="py-4 text-start">1-on-1 Personal Trainer Coach</td>
+              <td class="py-4 text-start">1-on-1 Personal Coach Check-Ins</td>
               <td class="py-4 text-center text-zinc-300 dark:text-zinc-700">✖</td>
               <td class="py-4 text-center text-zinc-300 dark:text-zinc-700">✖</td>
-              <td class="py-4 text-center text-gym-brand">✔</td>
+              <td class="py-4 text-center text-gym-brand">Bi-Weekly Included</td>
             </tr>
             <!-- Row 6 -->
             <tr>
-              <td class="py-4 text-start">Smart APP Biometric Logging</td>
-              <td class="py-4 text-center text-zinc-300 dark:text-zinc-700">✖</td>
-              <td class="py-4 text-center text-gym-brand">✔</td>
-              <td class="py-4 text-center text-gym-brand">✔</td>
+              <td class="py-4 text-start">FitCore Companion App & Workout Logging</td>
+              <td class="py-4 text-center text-zinc-300 dark:text-zinc-700">Basic App</td>
+              <td class="py-4 text-center text-gym-brand">✔ Full Access</td>
+              <td class="py-4 text-center text-gym-brand">✔ Full + Coach Chat</td>
             </tr>
           </tbody>
         </table>
@@ -663,27 +632,27 @@
         <!-- Benefits List Right -->
         <div class="lg:col-span-7 space-y-8">
           <div class="space-y-2">
-            <span class="text-xs font-bold uppercase tracking-widest text-gym-brand">Exclusive Perks</span>
-            <h2 class="text-3xl font-extrabold text-zinc-950 dark:text-white uppercase leading-none">MEMBERSHIP BENEFITS</h2>
-            <p class="text-sm text-zinc-500 dark:text-zinc-400 font-medium">We design additional ecosystems to accelerate your physical results and recovery comfort.</p>
+            <span class="text-xs font-bold uppercase tracking-widest text-gym-brand">Member Privileges</span>
+            <h2 class="text-3xl font-extrabold text-zinc-950 dark:text-white uppercase leading-none">THE FITCORE ADVANTAGE</h2>
+            <p class="text-sm text-zinc-500 dark:text-zinc-400 font-medium">Every tier is backed by thoughtful amenities engineered to accelerate your physical results, optimize recovery, and fit your everyday lifestyle.</p>
           </div>
           
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
             <div class="space-y-2">
-              <h4 class="text-sm font-bold uppercase text-zinc-900 dark:text-white">Infrared Recovery</h4>
-              <p class="text-xs text-zinc-500 dark:text-zinc-400 leading-relaxed font-medium">Use high-end infrared saunas and local thermal boots to lower muscle soreness rapidly.</p>
+              <h4 class="text-sm font-bold uppercase text-zinc-900 dark:text-white">Contrast Therapy Suite</h4>
+              <p class="text-xs text-zinc-500 dark:text-zinc-400 leading-relaxed font-medium">Recharge in full-spectrum infrared saunas and ice baths designed to reduce inflammation and accelerate neuromuscular recovery.</p>
             </div>
             <div class="space-y-2">
-              <h4 class="text-sm font-bold uppercase text-zinc-900 dark:text-white">Smoothie Bar Discount</h4>
-              <p class="text-xs text-zinc-500 dark:text-zinc-400 leading-relaxed font-medium">Receive 15% discount on all premium post-workout whey and vegan recovery shakes.</p>
+              <h4 class="text-sm font-bold uppercase text-zinc-900 dark:text-white">Fuel Bar Member Discount</h4>
+              <p class="text-xs text-zinc-500 dark:text-zinc-400 leading-relaxed font-medium">Enjoy 15% off all post-workout protein smoothies, cold brew, and clean electrolyte recovery drinks at the Fuel Bar.</p>
             </div>
             <div class="space-y-2">
-              <h4 class="text-sm font-bold uppercase text-zinc-900 dark:text-white">Flexible Freezing</h4>
-              <p class="text-xs text-zinc-500 dark:text-zinc-400 leading-relaxed font-medium">Freeze your billing profile for up to 60 days per year. Ideal for holidays or travels.</p>
+              <h4 class="text-sm font-bold uppercase text-zinc-900 dark:text-white">Hassle-Free Freezing</h4>
+              <p class="text-xs text-zinc-500 dark:text-zinc-400 leading-relaxed font-medium">Put your membership on hold for up to 60 days per calendar year with zero penalty fees during travel, work, or recovery.</p>
             </div>
             <div class="space-y-2">
-              <h4 class="text-sm font-bold uppercase text-zinc-900 dark:text-white">Pulse Smart Portal</h4>
-              <p class="text-xs text-zinc-500 dark:text-zinc-400 leading-relaxed font-medium">Track compound lifts, view trainer notes, and schedule slots from your user dashboard.</p>
+              <h4 class="text-sm font-bold uppercase text-zinc-900 dark:text-white">FitCore Member App</h4>
+              <p class="text-xs text-zinc-500 dark:text-zinc-400 leading-relaxed font-medium">Reserve studio spots, track personal bests, log daily macros, and coordinate directly with your coach from your phone.</p>
             </div>
           </div>
         </div>
@@ -698,35 +667,35 @@
         <!-- Copy Left -->
         <div class="lg:col-span-7 space-y-6 order-last lg:order-first">
           <div class="space-y-2">
-            <span class="text-xs font-bold uppercase tracking-widest text-gym-brand">Commitment Blocks</span>
-            <h2 class="text-3xl font-extrabold text-zinc-950 dark:text-white uppercase leading-none">MEMBERSHIP DURATION</h2>
-            <p class="text-sm text-zinc-500 dark:text-zinc-400 font-medium">Pick a training timeline. Standard tiers are fully monthly, but commitments unlock major incentives.</p>
+            <span class="text-xs font-bold uppercase tracking-widest text-gym-brand">Commitment Terms</span>
+            <h2 class="text-3xl font-extrabold text-zinc-950 dark:text-white uppercase leading-none">FLEXIBLE PAYMENT PLANS</h2>
+            <p class="text-sm text-zinc-500 dark:text-zinc-400 font-medium">Select the training duration that matches your lifestyle. Stay fully flexible month-to-month, or unlock preferred savings with our multi-month training terms.</p>
           </div>
           
           <div class="space-y-4 text-xs font-bold uppercase">
             <!-- Tier 1 -->
             <div class="p-4 bg-gym-lightCard dark:bg-gym-darkCard rounded-xl border border-gym-lightBorder dark:border-gym-darkBorder flex items-center justify-between shadow-sm">
               <div class="space-y-1">
-                <span class="block text-zinc-950 dark:text-white">Month-To-Month Block</span>
-                <span class="text-[10px] text-zinc-400">100% Flex // Cancel or freeze anytime</span>
+                <span class="block text-zinc-950 dark:text-white">Month-to-Month Flexibility</span>
+                <span class="text-[10px] text-zinc-400">No contracts // Cancel or freeze anytime with 14-day notice</span>
               </div>
-              <span class="text-gym-brand">Standard Price</span>
+              <span class="text-gym-brand">Regular Rate</span>
             </div>
             <!-- Tier 2 -->
             <div class="p-4 bg-gym-lightCard dark:bg-gym-darkCard rounded-xl border border-gym-lightBorder dark:border-gym-darkBorder flex items-center justify-between shadow-sm">
               <div class="space-y-1">
-                <span class="block text-zinc-950 dark:text-white">3-Month Cycle Card</span>
-                <span class="text-[10px] text-zinc-400">Ideal for targeted physical blocks</span>
+                <span class="block text-zinc-950 dark:text-white">3-Month Consistency Plan</span>
+                <span class="text-[10px] text-zinc-400">Recommended for 12-week body recomposition and strength phases</span>
               </div>
-              <span class="text-gym-brand">Save 10%</span>
+              <span class="text-gym-brand">Save 10% Overall</span>
             </div>
             <!-- Tier 3 -->
             <div class="p-4 bg-gym-lightCard dark:bg-gym-darkCard rounded-xl border border-gym-brand dark:border-zinc-800 flex items-center justify-between shadow-sm relative overflow-hidden">
               <div class="space-y-1">
-                <span class="block text-zinc-950 dark:text-white">12-Month Year Block</span>
-                <span class="text-[10px] text-zinc-400">Includes free startup swag bag & meal check-in</span>
+                <span class="block text-zinc-950 dark:text-white">12-Month Annual Commitment</span>
+                <span class="text-[10px] text-zinc-400">Best overall value // Includes free FitCore starter kit & custom nutrition blueprint</span>
               </div>
-              <span class="text-gym-brand">Save 20%</span>
+              <span class="text-gym-brand">Save 20% Overall</span>
             </div>
           </div>
         </div>
@@ -767,7 +736,7 @@
             </span>
           </a>
           <p class="text-sm font-medium leading-relaxed text-zinc-500 dark:text-zinc-400">
-            Premium strength training, cardio, and group fitness classes. Push your limits, track your progress, and join our elite fitness community today.
+            FitCore delivers state-of-the-art strength equipment, high-energy studio classes, and restorative recovery suites. Train with purpose and elevate your fitness journey today.
           </p>
           <!-- Social Icons (Inline SVGs) -->
           <div class="flex items-center space-x-4 rtl:space-x-reverse">
@@ -840,7 +809,7 @@
       <!-- Bottom Bar -->
       <div class="mt-16 pt-8 border-t border-gym-lightBorder dark:border-gym-darkBorder flex flex-col sm:flex-row items-center justify-between gap-4">
         <p class="text-xs font-medium text-zinc-500 dark:text-zinc-400 text-center sm:text-start">
-          &copy; 2026 FitCore. All rights reserved. Built with strength.
+          &copy; 2026 FitCore Gym & Fitness Center. All rights reserved. Built with strength & passion.
         </p>
         <div class="flex items-center space-x-6 rtl:space-x-reverse text-xs font-semibold">
           <a href="./privacy.html" class="hover:text-gym-brand transition-colors">Privacy Policy</a>
